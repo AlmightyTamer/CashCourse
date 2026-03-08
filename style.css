@@ -1,0 +1,75 @@
+/* Basic Reset */
+body, h1, h2, h3, p, button {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Landing Section */
+#landing {
+  height: 100vh;
+  background: linear-gradient(to right, #2c3e50, #4ca1af);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#landing h1 {
+  font-size: 4em;
+}
+
+#landing p {
+  font-size: 1.5em;
+  margin: 20px 0;
+}
+
+#landing button {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: #e67e22;
+  color: white;
+}
+
+/* Overview Section */
+#overview {
+  padding: 50px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.stat {
+  margin: 0 20px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  width: 150px;
+}
+
+/* Main Course Page */
+.hidden {
+  display: none;
+}
+
+#coursePage {
+  padding: 50px;
+}
+
+.chapter {
+  margin: 20px 0;
+  padding: 20px;
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  cursor: pointer;
+}
