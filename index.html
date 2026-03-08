@@ -1,39 +1,435 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>CashCourse</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CashCourse — Learn Money. Build Your Future.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Landing Section -->
-  <section id="landing">
-    <h1>CashCourse</h1>
-    <p>Learn financial literacy the easy way.</p>
-    <button id="signupBtn">Create Account</button>
-  </section>
+<nav id="mainNav">
+  <a class="nav-logo" onclick="goToHome()">
+    <div class="nav-logo-icon">C$</div>
+    CashCourse
+  </a>
+  <ul class="nav-links">
+    <li><a id="nav-home"       onclick="showPage('home');       return false;" class="active">Home</a></li>
+    <li><a id="nav-curriculum" onclick="showPage('curriculum'); return false;">Curriculum</a></li>
+    <li><a id="nav-lesson"     onclick="showPage('lesson');     return false;">Lessons</a></li>
+    <li><a id="nav-resources"  onclick="showPage('resources');  return false;">Resources</a></li>
+    <li><a id="nav-about"      onclick="showPage('about');      return false;">About</a></li>
+  </ul>
+  <div class="nav-cta">
+    <button id="navLoginBtn"  class="btn-ghost"   onclick="openAuthModal('login')">Log In</button>
+    <button id="navSignupBtn" class="btn-primary" onclick="openAuthModal('signup')">Start Learning</button>
+    <div id="navUserArea" style="display:none">
+      <span id="navStreakBadge" class="streak-badge"></span>
+      <span id="navUserName" class="nav-user-name"></span>
+      <button class="btn-ghost" onclick="handleLogout()">Log Out</button>
+    </div>
+  </div>
+  <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-  <!-- Overview Section -->
-  <section id="overview">
-    <h2>CashCourse Stats</h2>
-    <div class="stats">
-      <div class="stat"><h3 id="users">0</h3><p>Users</p></div>
-      <div class="stat"><h3 id="lessons">0</h3><p>Lessons</p></div>
-      <div class="stat"><h3 id="videos">0</h3><p>Videos</p></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="showPage('home');       toggleMobileMenu();">Home</a>
+  <a onclick="showPage('curriculum'); toggleMobileMenu();">Curriculum</a>
+  <a onclick="showPage('lesson');     toggleMobileMenu();">Lessons</a>
+  <a onclick="showPage('resources');  toggleMobileMenu();">Resources</a>
+  <a onclick="showPage('about');      toggleMobileMenu();">About</a>
+  <button class="btn-primary" style="margin-top:20px;width:100%;padding:14px;border-radius:12px;" onclick="openAuthModal('signup');toggleMobileMenu();">Start Learning Free</button>
+</div>
+
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Free Financial Education for Everyone
+      </div>
+      <h1 class="hero-title">
+        Learn Money.<br>
+        Build Your <em>Future.</em>
+      </h1>
+      <p class="hero-desc">
+        CashCourse turns complex financial concepts into short, visual lessons anyone can understand — whether you're just starting out or leveling up your financial life.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-hero-primary" onclick="openAuthModal('signup')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Start Learning
+        </button>
+        <button class="btn-hero-outline" onclick="goToCurriculum()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+          Explore Curriculum
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num" id="heroStat1Num">—</div>
+          <div class="stat-label" id="heroStat1Label">—</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="heroStat2Num">—</div>
+          <div class="stat-label" id="heroStat2Label">—</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num" id="heroStat3Num">—</div>
+          <div class="stat-label" id="heroStat3Label">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card-stack">
+        <div class="hcard hcard-back1"></div>
+        <div class="hcard hcard-back2"></div>
+        <div class="hcard hcard-main">
+          <div class="hcard-label">Your Progress</div>
+          <div class="hcard-title">Budgeting &amp; Saving</div>
+          <div class="progress-wrap">
+            <div class="progress-label"><span>Lesson 3 of 8</span><span>37%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:37%"></div></div>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-label"><span>Overall Course</span><span>14%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:14%"></div></div>
+          </div>
+          <div class="hcard-chips">
+            <span class="chip">Budgeting</span>
+            <span class="chip gold">Saving</span>
+            <span class="chip rose">Investing</span>
+          </div>
+        </div>
+        <div class="floating-badge a">
+          <div class="badge-icon">🏆</div>
+          <div>
+            <div class="badge-text">Achievement Unlocked!</div>
+            <div class="badge-sub">Budget Master · Just now</div>
+          </div>
+        </div>
+        <div class="floating-badge b">
+          <div class="badge-icon">🎯</div>
+          <div>
+            <div class="badge-text">5-Day Streak</div>
+            <div class="badge-sub">Keep it going!</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Main Course Page (hidden until login) -->
-  <section id="coursePage" class="hidden">
-    <h2>Main Courses</h2>
-    <div id="chapters"></div>
+  <div class="trust-bar reveal">
+    <div class="trust-item"><span class="trust-icon">🎓</span><span class="trust-name">Khan-Style Learning</span></div>
+    <div class="trust-item"><span class="trust-icon">🔓</span><span class="trust-name">Always Free</span></div>
+    <div class="trust-item"><span class="trust-icon">📱</span><span class="trust-name">Mobile-First</span></div>
+    <div class="trust-item"><span class="trust-icon">🌍</span><span class="trust-name">For Everyone</span></div>
+    <div class="trust-item"><span class="trust-icon">⚡</span><span class="trust-name">Bite-Sized Lessons</span></div>
+  </div>
+
+  <section>
+    <div class="mission-grid">
+      <div>
+        <div class="section-eyebrow">Our Mission</div>
+        <h2 class="section-title">Financial literacy should be a <em style="font-family:'DM Serif Display',serif;font-style:italic">right</em>, not a privilege.</h2>
+        <p class="section-desc">Most people were never taught how money actually works. CashCourse changes that with clear, visual, self-paced lessons designed for the real world.</p>
+        <ul class="mission-points">
+          <li><div class="mp-dot"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Bite-sized video lessons you can finish in under 10 minutes</li>
+          <li><div class="mp-dot"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Visual diagrams, interactive tools, and real-world examples</li>
+          <li><div class="mp-dot"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>No jargon — plain language that actually makes sense</li>
+          <li><div class="mp-dot"><svg viewBox="0 0 12 12"><polyline points="2 6 5 9 10 3"/></svg></div>Completely free — no paywalls, ever</li>
+        </ul>
+      </div>
+      <div class="mission-visual reveal">
+        <div class="mission-big-card">
+          <div class="mbcard-label">Average savings after completing</div>
+          <div class="mbcard-num">$4,200</div>
+          <div class="mbcard-desc">Users who complete the Budgeting module report saving an average of $4,200 more per year.</div>
+        </div>
+        <div class="mission-small-cards">
+          <div class="ms-card"><div class="ms-icon">📈</div><div class="ms-label">Investing Returns</div><div class="ms-val">+18% avg.</div></div>
+          <div class="ms-card"><div class="ms-icon">💳</div><div class="ms-label">Credit Score</div><div class="ms-val">+87 pts avg.</div></div>
+          <div class="ms-card"><div class="ms-icon">🎯</div><div class="ms-label">Completion Rate</div><div class="ms-val">74%</div></div>
+          <div class="ms-card"><div class="ms-icon">⭐</div><div class="ms-label">User Rating</div><div class="ms-val">4.9 / 5.0</div></div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <script src="script.js"></script>
+  <section style="background:white;margin:0 -5%;padding:80px 5%">
+    <div style="text-align:center;margin-bottom:52px">
+      <div class="section-eyebrow" style="display:inline-flex">What You'll Learn</div>
+      <h2 class="section-title" style="max-width:500px;margin:0 auto 14px">Everything you need to master your money</h2>
+      <p style="font-size:.95rem;color:var(--muted);max-width:440px;margin:0 auto;line-height:1.65">Structured modules, real lessons, and practical tools.</p>
+    </div>
+    <div class="topics-grid reveal" id="topicsGrid"></div>
+  </section>
+
+</div>
+
+
+<!-- CURRICULUM PAGE -->
+<div id="page-curriculum" class="page">
+  <div class="curriculum-hero">
+    <div class="section-eyebrow" style="display:inline-flex">Full Curriculum</div>
+    <h2 class="section-title">From zero to financially confident</h2>
+    <p class="section-desc">Structured modules, each building on the last. Work at your own pace, in any order.</p>
+  </div>
+  <div class="modules-list" id="modulesList"></div>
+</div>
+
+
+<!-- LESSON PAGE -->
+<div id="page-lesson" class="page">
+<div class="lesson-page">
+  <div class="lesson-breadcrumb">
+    <a onclick="showPage('curriculum');return false;">← Curriculum</a>
+    <span>›</span>
+    <span id="lessonBreadcrumbChapter">Chapter</span>
+    <span>›</span>
+    <span id="lessonBreadcrumbLesson">Lesson</span>
+  </div>
+
+  <div class="lesson-layout">
+    <div class="lesson-main">
+      <div class="lesson-tabs">
+        <button id="tabVideoBtn"   class="tab-btn active" onclick="switchLessonTab('video')">🎬 Video</button>
+        <button id="tabArticleBtn" class="tab-btn"        onclick="switchLessonTab('article')">📄 Article</button>
+      </div>
+
+      <div id="lessonVideoPanel">
+        <div class="lesson-video-wrap" id="lessonVideoWrap">
+          <iframe id="lessonIframe" src="" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+          <div class="video-placeholder" id="videoPlaceholder">
+            <div class="vp-inner">
+              <div class="vp-icon">🎬</div>
+              <div class="vp-title">Video coming soon</div>
+              <div class="vp-sub">Check the Article tab for reading material</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="lessonArticlePanel" style="display:none">
+        <div class="article-body" id="lessonArticleBody"></div>
+      </div>
+
+      <h1 class="lesson-h1" id="lessonTitle">Lesson Title</h1>
+      <div class="lesson-meta-row">
+        <div class="lm-item">📚 <span id="lessonChapterName">Chapter</span></div>
+        <div class="lm-item">⏱ <span id="lessonDuration">—</span></div>
+        <div class="lm-item">🎯 <span id="lessonNum">—</span></div>
+        <div class="lm-item" style="color:var(--green);font-weight:600">✦ <span id="lessonTag">—</span></div>
+      </div>
+
+      <div class="lesson-actions">
+        <button id="markDoneBtn" class="btn-hero-primary" onclick="markCurrentDone()">Mark as Complete ✓</button>
+      </div>
+
+      <div class="lesson-nav">
+        <button class="ln-btn" id="prevLessonBtn" onclick="prevLesson()">← Previous</button>
+        <button class="ln-btn next" id="nextLessonBtn" onclick="nextLesson()">Next Lesson →</button>
+      </div>
+    </div>
+
+    <div class="lesson-sidebar">
+      <div class="sidebar-card">
+        <div class="sc-title" id="sidebarModuleTitle">Module</div>
+        <div class="sc-progress-wrap">
+          <div class="sc-prog-label">
+            <span>Progress</span>
+            <span id="sidebarProgLabel">—</span>
+          </div>
+          <div class="sc-prog-bar"><div class="sc-prog-fill" id="sidebarProgFill" style="width:0%"></div></div>
+        </div>
+        <ul class="sc-lessons" id="sidebarLessonList"></ul>
+      </div>
+      <div class="sidebar-card">
+        <div class="sc-title">Your Streak 🔥</div>
+        <div id="streakDots" class="streak-dots-row"></div>
+        <div class="streak-summary">
+          <span id="sidebarStreakNum">0</span>-day streak — keep it up!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<!-- RESOURCES PAGE -->
+<div id="page-resources" class="page">
+  <div class="resources-hero">
+    <div class="section-eyebrow" style="display:inline-flex">Tools &amp; Resources</div>
+    <h2 class="section-title">Everything you need to take action</h2>
+    <p class="section-desc" style="max-width:480px;margin:0 auto">Free calculators and templates to put your financial knowledge to work.</p>
+  </div>
+
+  <div class="calc-section">
+    <div class="section-eyebrow">Interactive Calculator</div>
+    <h2 class="section-title">Budget Calculator</h2>
+    <p class="section-desc">Enter your monthly income and expenses to see your 50/30/20 breakdown.</p>
+    <div class="budget-calculator reveal">
+      <div class="bc-title">Monthly Budget Planner</div>
+      <div class="bc-sub">Based on the 50/30/20 budgeting rule</div>
+      <div class="bc-row">
+        <div class="bc-field"><label>Monthly Income (After Tax)</label><input type="number" id="income" placeholder="e.g. 4000" oninput="calcBudget()"></div>
+        <div class="bc-field"><label>Monthly Fixed Expenses</label><input type="number" id="fixed" placeholder="e.g. 1200" oninput="calcBudget()"></div>
+      </div>
+      <div class="bc-row">
+        <div class="bc-field"><label>Monthly Variable Spending</label><input type="number" id="variable" placeholder="e.g. 800" oninput="calcBudget()"></div>
+        <div class="bc-field"><label>Monthly Debt Payments</label><input type="number" id="debt" placeholder="e.g. 300" oninput="calcBudget()"></div>
+      </div>
+      <div class="bc-result" id="budgetResult" style="display:none">
+        <div class="bcr-item"><div class="bcr-label">Needs (50%)</div><div class="bcr-val" id="resNeeds">—</div></div>
+        <div class="bcr-item"><div class="bcr-label">Wants (30%)</div><div class="bcr-val" id="resWants">—</div></div>
+        <div class="bcr-item"><div class="bcr-label">Savings (20%)</div><div class="bcr-val" id="resSavings">—</div></div>
+        <div class="bcr-item"><div class="bcr-label">Left Over</div><div class="bcr-val" id="resLeft">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0 5% 80px">
+    <div class="section-eyebrow">More Calculators</div>
+    <h2 class="section-title">Run the numbers</h2>
+    <div class="calc-grid reveal" style="margin-top:40px">
+      <div class="calc-card"><div class="calc-icon">📈</div><div class="calc-title">Compound Interest Calculator</div><div class="calc-desc">See how your investments grow over time with the magic of compounding returns.</div><a class="calc-btn">Open Calculator →</a></div>
+      <div class="calc-card"><div class="calc-icon">🏠</div><div class="calc-title">Rent vs. Buy Calculator</div><div class="calc-desc">Enter your local costs and see whether renting or buying makes more financial sense.</div><a class="calc-btn">Open Calculator →</a></div>
+      <div class="calc-card"><div class="calc-icon">💳</div><div class="calc-title">Debt Payoff Planner</div><div class="calc-desc">Model the avalanche vs. snowball method and find your fastest path to debt-free.</div><a class="calc-btn">Open Calculator →</a></div>
+    </div>
+  </div>
+
+  <div style="padding:0 5% 100px">
+    <div class="section-eyebrow">Free Templates</div>
+    <h2 class="section-title">Ready-to-use financial templates</h2>
+    <div class="templates-grid reveal" style="margin-top:40px">
+      <div class="tmpl-card"><div class="tmpl-preview">📋</div><div class="tmpl-name">Monthly Budget Tracker</div><div class="tmpl-type">Spreadsheet · Excel / Sheets</div></div>
+      <div class="tmpl-card"><div class="tmpl-preview">💰</div><div class="tmpl-name">Net Worth Statement</div><div class="tmpl-type">Spreadsheet · Excel / Sheets</div></div>
+      <div class="tmpl-card"><div class="tmpl-preview">🎯</div><div class="tmpl-name">Financial Goal Planner</div><div class="tmpl-type">PDF · Printable</div></div>
+      <div class="tmpl-card"><div class="tmpl-preview">🗂️</div><div class="tmpl-name">Debt Payoff Tracker</div><div class="tmpl-type">Spreadsheet · Excel / Sheets</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ABOUT PAGE -->
+<div id="page-about" class="page">
+  <div class="about-hero">
+    <div class="section-eyebrow" style="display:inline-flex">Our Story</div>
+    <h2 class="section-title">We believe financial education changes lives.</h2>
+    <p class="section-desc" style="max-width:480px;margin:0 auto">CashCourse was born from a simple frustration: why is personal finance taught so poorly in schools?</p>
+  </div>
+  <div class="about-grid">
+    <div>
+      <h3 style="font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--ink);margin-bottom:16px">Inspired by the best in education</h3>
+      <p style="font-size:.95rem;color:var(--ink2);line-height:1.75;margin-bottom:16px">When Khan Academy proved that world-class education could be free for anyone with an internet connection, it changed everything. We asked: why isn't there a Khan Academy for personal finance?</p>
+      <p style="font-size:.95rem;color:var(--ink2);line-height:1.75">No textbook jargon. No paywalls. Just clear, actionable knowledge you can use today.</p>
+    </div>
+    <div class="about-visual reveal">
+      <div class="av-quote">"Financial literacy is not a luxury. It's the foundation of every other life decision."</div>
+      <div class="av-attr">— CashCourse founding team</div>
+    </div>
+  </div>
+  <div class="about-values">
+    <div style="text-align:center;margin-bottom:52px">
+      <div class="section-eyebrow" style="display:inline-flex">Our Values</div>
+      <h2 class="section-title" style="max-width:480px;margin:0 auto">What we stand for</h2>
+    </div>
+    <div class="values-grid reveal">
+      <div class="value-card"><div class="value-icon">🔓</div><div class="value-title">Radical Accessibility</div><div class="value-desc">Free, forever. No premium tiers, no paywalls.</div></div>
+      <div class="value-card"><div class="value-icon">🎯</div><div class="value-title">Clarity Above All</div><div class="value-desc">Every lesson is written in plain language by educators who understand how adults actually learn.</div></div>
+      <div class="value-card"><div class="value-icon">🌱</div><div class="value-title">Real-World Impact</div><div class="value-desc">Our goal is that learners leave with skills they use the very next day.</div></div>
+    </div>
+  </div>
+  <div class="team-section">
+    <div style="text-align:center;margin-bottom:52px">
+      <div class="section-eyebrow" style="display:inline-flex">The Team</div>
+      <h2 class="section-title" style="max-width:440px;margin:0 auto">Built by educators &amp; finance professionals</h2>
+    </div>
+    <div class="team-grid reveal">
+      <div class="team-card"><div class="team-avatar">👩‍💼</div><div class="team-name">Sarah Chen</div><div class="team-role">Founder &amp; CEO</div></div>
+      <div class="team-card"><div class="team-avatar">👨‍🏫</div><div class="team-name">Marcus Rivera</div><div class="team-role">Head of Curriculum</div></div>
+      <div class="team-card"><div class="team-avatar">👩‍🎨</div><div class="team-name">Priya Nair</div><div class="team-role">Lead Designer</div></div>
+      <div class="team-card"><div class="team-avatar">👨‍💻</div><div class="team-name">James Wu</div><div class="team-role">Engineering Lead</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a class="nav-logo" onclick="goToHome()" style="cursor:pointer;margin-bottom:14px;display:flex">
+        <div class="nav-logo-icon">C$</div>CashCourse
+      </a>
+      <p>Free, visual financial education for everyone. Learn budgeting, credit, investing, and more — one short lesson at a time.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Learn</h4>
+      <a onclick="showPage('curriculum')">All Modules</a>
+      <a onclick="showPage('resources')">Resources</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a onclick="showPage('about')">About Us</a>
+      <a>Blog</a>
+      <a>Careers</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a>Privacy Policy</a>
+      <a>Terms of Use</a>
+      <a>Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 CashCourse. Free financial education for everyone.</span>
+    <div class="footer-social">
+      <a class="social-btn">𝕏</a>
+      <a class="social-btn">in</a>
+      <a class="social-btn">▶</a>
+    </div>
+  </div>
+</footer>
+
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="modal-backdrop" style="display:none">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    <div class="modal-logo"><div class="nav-logo-icon">C$</div></div>
+    <h2 class="modal-title" id="authModalTitle">Welcome back</h2>
+    <p class="modal-sub">Track your progress across all lessons</p>
+    <div id="authNameGroup">
+      <label class="field-label">Your Name</label>
+      <input class="field-input" id="authName" type="text" placeholder="e.g. Alex Johnson">
+    </div>
+    <label class="field-label">Email</label>
+    <input class="field-input" id="authEmail" type="email" placeholder="you@example.com">
+    <label class="field-label">Password</label>
+    <input class="field-input" id="authPassword" type="password" placeholder="Min. 6 characters">
+    <div id="authError" class="auth-error" style="display:none"></div>
+    <button class="btn-hero-primary" id="authSubmitBtn" onclick="handleAuthSubmit()" style="width:100%;justify-content:center;margin-top:8px">Log In</button>
+    <p class="auth-toggle" id="authToggleMsg">
+      Don't have an account? <a onclick="switchAuthMode('signup')">Sign up free →</a>
+    </p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast"></div>
+
+<script src="script.js"></script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 47c36d9a3b8c47dfd5ebffcfc09562afd46440f6
