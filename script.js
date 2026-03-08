@@ -45,4 +45,8 @@ function loadStats() {
   document.getElementById("users").innerText = users;
   document.getElementById("lessons").innerText = lessons;
   document.getElementById("videos").innerText = videos;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 47c36d9a3b8c47dfd5ebffcfc09562afd46440f6
