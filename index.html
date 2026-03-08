@@ -10,22 +10,23 @@
 </head>
 <body>
 
+<!-- NAV -->
 <nav id="mainNav">
-  <a class="nav-logo" onclick="goToHome()">
+  <div class="nav-logo" onclick="goToHome()">
     <div class="nav-logo-icon">C$</div>
     CashCourse
-  </a>
+  </div>
   <ul class="nav-links">
-    <li><a id="nav-home"       onclick="showPage('home');       return false;" class="active">Home</a></li>
-    <li><a id="nav-curriculum" onclick="showPage('curriculum'); return false;">Curriculum</a></li>
-    <li><a id="nav-lesson"     onclick="showPage('lesson');     return false;">Lessons</a></li>
-    <li><a id="nav-resources"  onclick="showPage('resources');  return false;">Resources</a></li>
-    <li><a id="nav-about"      onclick="showPage('about');      return false;">About</a></li>
+    <li><a href="#" id="nav-home"       onclick="showPage('home');       return false;" class="active">Home</a></li>
+    <li><a href="#" id="nav-curriculum" onclick="showPage('curriculum'); return false;">Curriculum</a></li>
+    <li><a href="#" id="nav-lesson"     onclick="showPage('lesson');     return false;">Lessons</a></li>
+    <li><a href="#" id="nav-resources"  onclick="showPage('resources');  return false;">Resources</a></li>
+    <li><a href="#" id="nav-about"      onclick="showPage('about');      return false;">About</a></li>
   </ul>
   <div class="nav-cta">
     <button id="navLoginBtn"  class="btn-ghost"   onclick="openAuthModal('login')">Log In</button>
     <button id="navSignupBtn" class="btn-primary" onclick="openAuthModal('signup')">Start Learning</button>
-    <div id="navUserArea" style="display:none">
+    <div id="navUserArea" style="display:none;align-items:center;gap:10px;">
       <span id="navStreakBadge" class="streak-badge"></span>
       <span id="navUserName" class="nav-user-name"></span>
       <button class="btn-ghost" onclick="handleLogout()">Log Out</button>
@@ -36,17 +37,18 @@
   </button>
 </nav>
 
+<!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
-  <a onclick="showPage('home');       toggleMobileMenu();">Home</a>
-  <a onclick="showPage('curriculum'); toggleMobileMenu();">Curriculum</a>
-  <a onclick="showPage('lesson');     toggleMobileMenu();">Lessons</a>
-  <a onclick="showPage('resources');  toggleMobileMenu();">Resources</a>
-  <a onclick="showPage('about');      toggleMobileMenu();">About</a>
+  <a href="#" onclick="showPage('home');       toggleMobileMenu(); return false;">Home</a>
+  <a href="#" onclick="showPage('curriculum'); toggleMobileMenu(); return false;">Curriculum</a>
+  <a href="#" onclick="showPage('lesson');     toggleMobileMenu(); return false;">Lessons</a>
+  <a href="#" onclick="showPage('resources');  toggleMobileMenu(); return false;">Resources</a>
+  <a href="#" onclick="showPage('about');      toggleMobileMenu(); return false;">About</a>
   <button class="btn-primary" style="margin-top:20px;width:100%;padding:14px;border-radius:12px;" onclick="openAuthModal('signup');toggleMobileMenu();">Start Learning Free</button>
 </div>
 
 
-<!-- HOME PAGE -->
+<!-- ═══════════════════ HOME PAGE ═══════════════════ -->
 <div id="page-home" class="page active">
 
   <section class="hero">
@@ -55,36 +57,22 @@
         <span class="hero-eyebrow-dot"></span>
         Free Financial Education for Everyone
       </div>
-      <h1 class="hero-title">
-        Learn Money.<br>
-        Build Your <em>Future.</em>
-      </h1>
-      <p class="hero-desc">
-        CashCourse turns complex financial concepts into short, visual lessons anyone can understand — whether you're just starting out or leveling up your financial life.
-      </p>
+      <h1 class="hero-title">Learn Money.<br>Build Your <em>Future.</em></h1>
+      <p class="hero-desc">CashCourse turns complex financial concepts into short, visual lessons anyone can understand — whether you're just starting out or leveling up your financial life.</p>
       <div class="hero-actions">
         <button class="btn-hero-primary" onclick="openAuthModal('signup')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Start Learning
         </button>
-        <button class="btn-hero-outline" onclick="goToCurriculum()">
+        <button class="btn-hero-outline" onclick="showPage('curriculum')">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
           Explore Curriculum
         </button>
       </div>
       <div class="hero-stats">
-        <div class="stat">
-          <div class="stat-num" id="heroStat1Num">—</div>
-          <div class="stat-label" id="heroStat1Label">—</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" id="heroStat2Num">—</div>
-          <div class="stat-label" id="heroStat2Label">—</div>
-        </div>
-        <div class="stat">
-          <div class="stat-num" id="heroStat3Num">—</div>
-          <div class="stat-label" id="heroStat3Label">—</div>
-        </div>
+        <div class="stat"><div class="stat-num" id="heroStat1Num">—</div><div class="stat-label" id="heroStat1Label">—</div></div>
+        <div class="stat"><div class="stat-num" id="heroStat2Num">—</div><div class="stat-label" id="heroStat2Label">—</div></div>
+        <div class="stat"><div class="stat-num" id="heroStat3Num">—</div><div class="stat-label" id="heroStat3Label">—</div></div>
       </div>
     </div>
 
@@ -110,29 +98,23 @@
           </div>
         </div>
         <div class="floating-badge a">
-          <div class="badge-icon">🏆</div>
-          <div>
-            <div class="badge-text">Achievement Unlocked!</div>
-            <div class="badge-sub">Budget Master · Just now</div>
-          </div>
+          <div class="badge-icon">&#127942;</div>
+          <div><div class="badge-text">Achievement Unlocked!</div><div class="badge-sub">Budget Master · Just now</div></div>
         </div>
         <div class="floating-badge b">
-          <div class="badge-icon">🎯</div>
-          <div>
-            <div class="badge-text">5-Day Streak</div>
-            <div class="badge-sub">Keep it going!</div>
-          </div>
+          <div class="badge-icon">&#127919;</div>
+          <div><div class="badge-text">5-Day Streak</div><div class="badge-sub">Keep it going!</div></div>
         </div>
       </div>
     </div>
   </section>
 
   <div class="trust-bar reveal">
-    <div class="trust-item"><span class="trust-icon">🎓</span><span class="trust-name">Khan-Style Learning</span></div>
-    <div class="trust-item"><span class="trust-icon">🔓</span><span class="trust-name">Always Free</span></div>
-    <div class="trust-item"><span class="trust-icon">📱</span><span class="trust-name">Mobile-First</span></div>
-    <div class="trust-item"><span class="trust-icon">🌍</span><span class="trust-name">For Everyone</span></div>
-    <div class="trust-item"><span class="trust-icon">⚡</span><span class="trust-name">Bite-Sized Lessons</span></div>
+    <div class="trust-item"><span class="trust-icon">&#127891;</span><span class="trust-name">Khan-Style Learning</span></div>
+    <div class="trust-item"><span class="trust-icon">&#128275;</span><span class="trust-name">Always Free</span></div>
+    <div class="trust-item"><span class="trust-icon">&#128241;</span><span class="trust-name">Mobile-First</span></div>
+    <div class="trust-item"><span class="trust-icon">&#127758;</span><span class="trust-name">For Everyone</span></div>
+    <div class="trust-item"><span class="trust-icon">&#9889;</span><span class="trust-name">Bite-Sized Lessons</span></div>
   </div>
 
   <section>
@@ -155,10 +137,10 @@
           <div class="mbcard-desc">Users who complete the Budgeting module report saving an average of $4,200 more per year.</div>
         </div>
         <div class="mission-small-cards">
-          <div class="ms-card"><div class="ms-icon">📈</div><div class="ms-label">Investing Returns</div><div class="ms-val">+18% avg.</div></div>
-          <div class="ms-card"><div class="ms-icon">💳</div><div class="ms-label">Credit Score</div><div class="ms-val">+87 pts avg.</div></div>
-          <div class="ms-card"><div class="ms-icon">🎯</div><div class="ms-label">Completion Rate</div><div class="ms-val">74%</div></div>
-          <div class="ms-card"><div class="ms-icon">⭐</div><div class="ms-label">User Rating</div><div class="ms-val">4.9 / 5.0</div></div>
+          <div class="ms-card"><div class="ms-icon">&#128200;</div><div class="ms-label">Investing Returns</div><div class="ms-val">+18% avg.</div></div>
+          <div class="ms-card"><div class="ms-icon">&#128179;</div><div class="ms-label">Credit Score</div><div class="ms-val">+87 pts avg.</div></div>
+          <div class="ms-card"><div class="ms-icon">&#127919;</div><div class="ms-label">Completion Rate</div><div class="ms-val">74%</div></div>
+          <div class="ms-card"><div class="ms-icon">&#11088;</div><div class="ms-label">User Rating</div><div class="ms-val">4.9 / 5.0</div></div>
         </div>
       </div>
     </div>
@@ -173,10 +155,10 @@
     <div class="topics-grid reveal" id="topicsGrid"></div>
   </section>
 
-</div>
+</div><!-- /home -->
 
 
-<!-- CURRICULUM PAGE -->
+<!-- ═══════════════════ CURRICULUM PAGE ═══════════════════ -->
 <div id="page-curriculum" class="page">
   <div class="curriculum-hero">
     <div class="section-eyebrow" style="display:inline-flex">Full Curriculum</div>
@@ -187,87 +169,85 @@
 </div>
 
 
-<!-- LESSON PAGE -->
+<!-- ═══════════════════ LESSON PAGE ═══════════════════ -->
 <div id="page-lesson" class="page">
-<div class="lesson-page">
-  <div class="lesson-breadcrumb">
-    <a onclick="showPage('curriculum');return false;">← Curriculum</a>
-    <span>›</span>
-    <span id="lessonBreadcrumbChapter">Chapter</span>
-    <span>›</span>
-    <span id="lessonBreadcrumbLesson">Lesson</span>
-  </div>
+  <div class="lesson-page">
+    <div class="lesson-breadcrumb">
+      <a href="#" onclick="showPage('curriculum');return false;">&#8592; Curriculum</a>
+      <span>&#8250;</span>
+      <span id="lessonBreadcrumbChapter">Chapter</span>
+      <span>&#8250;</span>
+      <span id="lessonBreadcrumbLesson">Lesson</span>
+    </div>
 
-  <div class="lesson-layout">
-    <div class="lesson-main">
-      <div class="lesson-tabs">
-        <button id="tabVideoBtn"   class="tab-btn active" onclick="switchLessonTab('video')">🎬 Video</button>
-        <button id="tabArticleBtn" class="tab-btn"        onclick="switchLessonTab('article')">📄 Article</button>
-      </div>
+    <div class="lesson-layout">
+      <div class="lesson-main">
 
-      <div id="lessonVideoPanel">
-        <div class="lesson-video-wrap" id="lessonVideoWrap">
-          <iframe id="lessonIframe" src="" frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen></iframe>
-          <div class="video-placeholder" id="videoPlaceholder">
-            <div class="vp-inner">
-              <div class="vp-icon">🎬</div>
-              <div class="vp-title">Video coming soon</div>
-              <div class="vp-sub">Check the Article tab for reading material</div>
+        <div class="lesson-tabs">
+          <button id="tabVideoBtn"   class="tab-btn active" onclick="switchLessonTab('video')">&#127909; Video</button>
+          <button id="tabArticleBtn" class="tab-btn"        onclick="switchLessonTab('article')">&#128196; Article</button>
+        </div>
+
+        <div id="lessonVideoPanel">
+          <div class="lesson-video-wrap">
+            <iframe id="lessonIframe" src="" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+            <div class="video-placeholder" id="videoPlaceholder">
+              <div class="vp-inner">
+                <div class="vp-icon">&#127909;</div>
+                <div class="vp-title">Video coming soon</div>
+                <div class="vp-sub">Check the Article tab for reading material</div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div id="lessonArticlePanel" style="display:none">
-        <div class="article-body" id="lessonArticleBody"></div>
-      </div>
+        <div id="lessonArticlePanel" style="display:none">
+          <div class="article-body" id="lessonArticleBody"></div>
+        </div>
 
-      <h1 class="lesson-h1" id="lessonTitle">Lesson Title</h1>
-      <div class="lesson-meta-row">
-        <div class="lm-item">📚 <span id="lessonChapterName">Chapter</span></div>
-        <div class="lm-item">⏱ <span id="lessonDuration">—</span></div>
-        <div class="lm-item">🎯 <span id="lessonNum">—</span></div>
-        <div class="lm-item" style="color:var(--green);font-weight:600">✦ <span id="lessonTag">—</span></div>
-      </div>
+        <h1 class="lesson-h1" id="lessonTitle">Lesson Title</h1>
+        <div class="lesson-meta-row">
+          <div class="lm-item">&#128218; <span id="lessonChapterName">Chapter</span></div>
+          <div class="lm-item">&#9201; <span id="lessonDuration">—</span></div>
+          <div class="lm-item">&#127919; <span id="lessonNum">—</span></div>
+          <div class="lm-item" style="color:var(--green);font-weight:600">&#10022; <span id="lessonTag">—</span></div>
+        </div>
 
-      <div class="lesson-actions">
-        <button id="markDoneBtn" class="btn-hero-primary" onclick="markCurrentDone()">Mark as Complete ✓</button>
-      </div>
+        <div class="lesson-actions">
+          <button id="markDoneBtn" class="btn-hero-primary" onclick="markCurrentDone()">Mark as Complete &#10003;</button>
+        </div>
 
-      <div class="lesson-nav">
-        <button class="ln-btn" id="prevLessonBtn" onclick="prevLesson()">← Previous</button>
-        <button class="ln-btn next" id="nextLessonBtn" onclick="nextLesson()">Next Lesson →</button>
-      </div>
-    </div>
+        <div class="lesson-nav">
+          <button class="ln-btn" id="prevLessonBtn" onclick="prevLesson()">&#8592; Previous</button>
+          <button class="ln-btn next" id="nextLessonBtn" onclick="nextLesson()">Next Lesson &#8594;</button>
+        </div>
 
-    <div class="lesson-sidebar">
-      <div class="sidebar-card">
-        <div class="sc-title" id="sidebarModuleTitle">Module</div>
-        <div class="sc-progress-wrap">
-          <div class="sc-prog-label">
-            <span>Progress</span>
-            <span id="sidebarProgLabel">—</span>
+      </div><!-- /lesson-main -->
+
+      <div class="lesson-sidebar">
+        <div class="sidebar-card">
+          <div class="sc-title" id="sidebarModuleTitle">Module</div>
+          <div class="sc-progress-wrap">
+            <div class="sc-prog-label"><span>Progress</span><span id="sidebarProgLabel">—</span></div>
+            <div class="sc-prog-bar"><div class="sc-prog-fill" id="sidebarProgFill" style="width:0%"></div></div>
           </div>
-          <div class="sc-prog-bar"><div class="sc-prog-fill" id="sidebarProgFill" style="width:0%"></div></div>
+          <ul class="sc-lessons" id="sidebarLessonList"></ul>
         </div>
-        <ul class="sc-lessons" id="sidebarLessonList"></ul>
-      </div>
-      <div class="sidebar-card">
-        <div class="sc-title">Your Streak 🔥</div>
-        <div id="streakDots" class="streak-dots-row"></div>
-        <div class="streak-summary">
-          <span id="sidebarStreakNum">0</span>-day streak — keep it up!
+        <div class="sidebar-card">
+          <div class="sc-title">Your Streak &#128293;</div>
+          <div id="streakDots" class="streak-dots-row"></div>
+          <div class="streak-summary"><span id="sidebarStreakNum">0</span>-day streak — keep it up!</div>
         </div>
       </div>
-    </div>
+
+    </div><!-- /lesson-layout -->
   </div>
-</div>
-</div>
+</div><!-- /lesson -->
 
 
-<!-- RESOURCES PAGE -->
+<!-- ═══════════════════ RESOURCES PAGE ═══════════════════ -->
 <div id="page-resources" class="page">
   <div class="resources-hero">
     <div class="section-eyebrow" style="display:inline-flex">Tools &amp; Resources</div>
@@ -303,9 +283,9 @@
     <div class="section-eyebrow">More Calculators</div>
     <h2 class="section-title">Run the numbers</h2>
     <div class="calc-grid reveal" style="margin-top:40px">
-      <div class="calc-card"><div class="calc-icon">📈</div><div class="calc-title">Compound Interest Calculator</div><div class="calc-desc">See how your investments grow over time with the magic of compounding returns.</div><a class="calc-btn">Open Calculator →</a></div>
-      <div class="calc-card"><div class="calc-icon">🏠</div><div class="calc-title">Rent vs. Buy Calculator</div><div class="calc-desc">Enter your local costs and see whether renting or buying makes more financial sense.</div><a class="calc-btn">Open Calculator →</a></div>
-      <div class="calc-card"><div class="calc-icon">💳</div><div class="calc-title">Debt Payoff Planner</div><div class="calc-desc">Model the avalanche vs. snowball method and find your fastest path to debt-free.</div><a class="calc-btn">Open Calculator →</a></div>
+      <div class="calc-card"><div class="calc-icon">&#128200;</div><div class="calc-title">Compound Interest Calculator</div><div class="calc-desc">See how your investments grow over time with the magic of compounding returns.</div><button class="calc-btn">Open Calculator &#8594;</button></div>
+      <div class="calc-card"><div class="calc-icon">&#127968;</div><div class="calc-title">Rent vs. Buy Calculator</div><div class="calc-desc">Enter your local costs and see whether renting or buying makes more financial sense.</div><button class="calc-btn">Open Calculator &#8594;</button></div>
+      <div class="calc-card"><div class="calc-icon">&#128179;</div><div class="calc-title">Debt Payoff Planner</div><div class="calc-desc">Model the avalanche vs. snowball method and find your fastest path to debt-free.</div><button class="calc-btn">Open Calculator &#8594;</button></div>
     </div>
   </div>
 
@@ -313,16 +293,16 @@
     <div class="section-eyebrow">Free Templates</div>
     <h2 class="section-title">Ready-to-use financial templates</h2>
     <div class="templates-grid reveal" style="margin-top:40px">
-      <div class="tmpl-card"><div class="tmpl-preview">📋</div><div class="tmpl-name">Monthly Budget Tracker</div><div class="tmpl-type">Spreadsheet · Excel / Sheets</div></div>
-      <div class="tmpl-card"><div class="tmpl-preview">💰</div><div class="tmpl-name">Net Worth Statement</div><div class="tmpl-type">Spreadsheet · Excel / Sheets</div></div>
-      <div class="tmpl-card"><div class="tmpl-preview">🎯</div><div class="tmpl-name">Financial Goal Planner</div><div class="tmpl-type">PDF · Printable</div></div>
-      <div class="tmpl-card"><div class="tmpl-preview">🗂️</div><div class="tmpl-name">Debt Payoff Tracker</div><div class="tmpl-type">Spreadsheet · Excel / Sheets</div></div>
+      <div class="tmpl-card"><div class="tmpl-preview">&#128203;</div><div class="tmpl-name">Monthly Budget Tracker</div><div class="tmpl-type">Spreadsheet · Excel / Sheets</div></div>
+      <div class="tmpl-card"><div class="tmpl-preview">&#128176;</div><div class="tmpl-name">Net Worth Statement</div><div class="tmpl-type">Spreadsheet · Excel / Sheets</div></div>
+      <div class="tmpl-card"><div class="tmpl-preview">&#127919;</div><div class="tmpl-name">Financial Goal Planner</div><div class="tmpl-type">PDF · Printable</div></div>
+      <div class="tmpl-card"><div class="tmpl-preview">&#128450;</div><div class="tmpl-name">Debt Payoff Tracker</div><div class="tmpl-type">Spreadsheet · Excel / Sheets</div></div>
     </div>
   </div>
-</div>
+</div><!-- /resources -->
 
 
-<!-- ABOUT PAGE -->
+<!-- ═══════════════════ ABOUT PAGE ═══════════════════ -->
 <div id="page-about" class="page">
   <div class="about-hero">
     <div class="section-eyebrow" style="display:inline-flex">Our Story</div>
@@ -346,9 +326,9 @@
       <h2 class="section-title" style="max-width:480px;margin:0 auto">What we stand for</h2>
     </div>
     <div class="values-grid reveal">
-      <div class="value-card"><div class="value-icon">🔓</div><div class="value-title">Radical Accessibility</div><div class="value-desc">Free, forever. No premium tiers, no paywalls.</div></div>
-      <div class="value-card"><div class="value-icon">🎯</div><div class="value-title">Clarity Above All</div><div class="value-desc">Every lesson is written in plain language by educators who understand how adults actually learn.</div></div>
-      <div class="value-card"><div class="value-icon">🌱</div><div class="value-title">Real-World Impact</div><div class="value-desc">Our goal is that learners leave with skills they use the very next day.</div></div>
+      <div class="value-card"><div class="value-icon">&#128275;</div><div class="value-title">Radical Accessibility</div><div class="value-desc">Free, forever. No premium tiers, no paywalls.</div></div>
+      <div class="value-card"><div class="value-icon">&#127919;</div><div class="value-title">Clarity Above All</div><div class="value-desc">Every lesson is written in plain language by educators who understand how adults actually learn.</div></div>
+      <div class="value-card"><div class="value-icon">&#127807;</div><div class="value-title">Real-World Impact</div><div class="value-desc">Our goal is that learners leave with skills they use the very next day.</div></div>
     </div>
   </div>
   <div class="team-section">
@@ -357,48 +337,48 @@
       <h2 class="section-title" style="max-width:440px;margin:0 auto">Built by educators &amp; finance professionals</h2>
     </div>
     <div class="team-grid reveal">
-      <div class="team-card"><div class="team-avatar">👩‍💼</div><div class="team-name">Sarah Chen</div><div class="team-role">Founder &amp; CEO</div></div>
-      <div class="team-card"><div class="team-avatar">👨‍🏫</div><div class="team-name">Marcus Rivera</div><div class="team-role">Head of Curriculum</div></div>
-      <div class="team-card"><div class="team-avatar">👩‍🎨</div><div class="team-name">Priya Nair</div><div class="team-role">Lead Designer</div></div>
-      <div class="team-card"><div class="team-avatar">👨‍💻</div><div class="team-name">James Wu</div><div class="team-role">Engineering Lead</div></div>
+      <div class="team-card"><div class="team-avatar">&#128105;&#8205;&#128188;</div><div class="team-name">Sarah Chen</div><div class="team-role">Founder &amp; CEO</div></div>
+      <div class="team-card"><div class="team-avatar">&#128104;&#8205;&#127979;</div><div class="team-name">Marcus Rivera</div><div class="team-role">Head of Curriculum</div></div>
+      <div class="team-card"><div class="team-avatar">&#128105;&#8205;&#127912;</div><div class="team-name">Priya Nair</div><div class="team-role">Lead Designer</div></div>
+      <div class="team-card"><div class="team-avatar">&#128104;&#8205;&#128187;</div><div class="team-name">James Wu</div><div class="team-role">Engineering Lead</div></div>
     </div>
   </div>
-</div>
+</div><!-- /about -->
 
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <a class="nav-logo" onclick="goToHome()" style="cursor:pointer;margin-bottom:14px;display:flex">
+      <div class="nav-logo" onclick="goToHome()" style="cursor:pointer;margin-bottom:14px;">
         <div class="nav-logo-icon">C$</div>CashCourse
-      </a>
+      </div>
       <p>Free, visual financial education for everyone. Learn budgeting, credit, investing, and more — one short lesson at a time.</p>
     </div>
     <div class="footer-col">
       <h4>Learn</h4>
-      <a onclick="showPage('curriculum')">All Modules</a>
-      <a onclick="showPage('resources')">Resources</a>
+      <a href="#" onclick="showPage('curriculum');return false;">All Modules</a>
+      <a href="#" onclick="showPage('resources');return false;">Resources</a>
     </div>
     <div class="footer-col">
       <h4>Company</h4>
-      <a onclick="showPage('about')">About Us</a>
-      <a>Blog</a>
-      <a>Careers</a>
+      <a href="#" onclick="showPage('about');return false;">About Us</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
     </div>
     <div class="footer-col">
       <h4>Legal</h4>
-      <a>Privacy Policy</a>
-      <a>Terms of Use</a>
-      <a>Contact Us</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Contact Us</a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2025 CashCourse. Free financial education for everyone.</span>
+    <span>&#169; 2025 CashCourse. Free financial education for everyone.</span>
     <div class="footer-social">
-      <a class="social-btn">𝕏</a>
-      <a class="social-btn">in</a>
-      <a class="social-btn">▶</a>
+      <a href="#" class="social-btn">X</a>
+      <a href="#" class="social-btn">in</a>
+      <a href="#" class="social-btn">&#9654;</a>
     </div>
   </div>
 </footer>
@@ -407,7 +387,7 @@
 <!-- AUTH MODAL -->
 <div id="authModal" class="modal-backdrop" style="display:none">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeAuthModal()">✕</button>
+    <button class="modal-close" onclick="closeAuthModal()">&#10005;</button>
     <div class="modal-logo"><div class="nav-logo-icon">C$</div></div>
     <h2 class="modal-title" id="authModalTitle">Welcome back</h2>
     <p class="modal-sub">Track your progress across all lessons</p>
@@ -420,9 +400,9 @@
     <label class="field-label">Password</label>
     <input class="field-input" id="authPassword" type="password" placeholder="Min. 6 characters">
     <div id="authError" class="auth-error" style="display:none"></div>
-    <button class="btn-hero-primary" id="authSubmitBtn" onclick="handleAuthSubmit()" style="width:100%;justify-content:center;margin-top:8px">Log In</button>
+    <button class="btn-hero-primary" id="authSubmitBtn" onclick="handleAuthSubmit()" style="width:100%;justify-content:center;margin-top:16px;">Log In</button>
     <p class="auth-toggle" id="authToggleMsg">
-      Don't have an account? <a onclick="switchAuthMode('signup')">Sign up free →</a>
+      Don't have an account? <a href="#" onclick="switchAuthMode('signup');return false;">Sign up free &#8594;</a>
     </p>
   </div>
 </div>
