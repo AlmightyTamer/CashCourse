@@ -1,0 +1,1590 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashCourse — Learn Money. Build Your Future.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&amp;family=DM+Serif+Display:ital@0;1&amp;family=DM+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+    <style>
+        :root{--bg:#f7f6f2;--bg2:#eeecea;--surface:#fff;--green:#1a9e6b;--green-light:#e6f7f1;--green-mid:#2ec98a;--teal:#0d8c7a;--teal-dark:#0a6b5e;--ink:#1a1a1a;--ink2:#3d3d3d;--muted:#7a7a7a;--border:#e2e0db;--accent-gold:#e8a634;--accent-rose:#e05c7a;--shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);--shadow-md:0 4px 16px rgba(0,0,0,.08),0 2px 6px rgba(0,0,0,.04);--shadow-lg:0 12px 40px rgba(0,0,0,.10),0 4px 12px rgba(0,0,0,.05);--radius:16px;--radius-sm:10px}
+        *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth;font-size:16px}
+        body{font-family:'Sora',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+        /* LOGIN */
+        #loginOverlay{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:20px}
+        .login-wrap{width:100%;max-width:440px}
+        .login-logo{display:flex;align-items:center;gap:10px;justify-content:center;font-family:'DM Serif Display',serif;font-size:1.6rem;color:var(--ink);margin-bottom:36px}
+        .login-logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--green),var(--teal));border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-size:1rem;font-weight:700;font-family:'Sora',sans-serif}
+        .login-card{background:white;border-radius:24px;padding:44px 40px;border:1px solid var(--border);box-shadow:var(--shadow-lg)}
+        .login-title{font-family:'DM Serif Display',serif;font-size:1.75rem;color:var(--ink);margin-bottom:6px}
+        .login-sub{font-size:.875rem;color:var(--muted);margin-bottom:32px;line-height:1.5}
+        .login-field{margin-bottom:18px}
+        .login-field label{display:block;font-size:.72rem;font-weight:700;color:var(--ink2);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+        .login-field input{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Sora',sans-serif;font-size:.9rem;color:var(--ink);background:var(--bg);outline:none;transition:border-color .2s,background .2s}
+        .login-field input:focus{border-color:var(--green);background:white}
+        .login-error{background:#fdf0f3;border:1px solid rgba(224,92,122,.25);border-radius:var(--radius-sm);padding:12px 16px;font-size:.82rem;color:#b53053;margin-bottom:18px;display:none}
+        .login-error.show{display:block}
+        .btn-login{width:100%;padding:13px;border-radius:var(--radius-sm);font-family:'Sora',sans-serif;font-size:.95rem;font-weight:700;color:white;background:var(--green);border:none;cursor:pointer;box-shadow:0 4px 14px rgba(26,158,107,.3);transition:background .2s,transform .15s}
+        .btn-login:hover{background:var(--teal);transform:translateY(-1px)}
+        .login-hint{margin-top:20px;padding:14px 16px;background:var(--green-light);border-radius:var(--radius-sm);border:1px solid rgba(26,158,107,.15);font-size:.78rem;color:var(--teal-dark);line-height:1.6}
+        .login-hint strong{color:var(--green)}
+        /* NAV */
+        nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:68px;background:rgba(247,246,242,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(226,224,219,.7);transition:box-shadow .3s}
+        nav.scrolled{box-shadow:var(--shadow-md)}
+        .nav-logo{display:flex;align-items:center;gap:10px;font-family:'DM Serif Display',serif;font-size:1.45rem;color:var(--ink);text-decoration:none;cursor:pointer}
+        .nav-logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--green),var(--teal));border-radius:10px;display:flex;align-items:center;justify-content:center;color:white;font-size:.9rem;font-weight:700;font-family:'Sora',sans-serif}
+        .nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+        .nav-links a{display:block;padding:8px 16px;color:var(--ink2);text-decoration:none;font-size:.875rem;font-weight:500;border-radius:var(--radius-sm);transition:background .2s,color .2s}
+        .nav-links a:hover{background:var(--bg2);color:var(--green)}
+        .nav-links a.active{color:var(--green);background:var(--green-light)}
+        .nav-cta{display:flex;align-items:center;gap:10px}
+        .btn-ghost{padding:9px 20px;border-radius:var(--radius-sm);font-size:.875rem;font-weight:600;color:var(--ink2);background:transparent;border:1.5px solid var(--border);cursor:pointer;text-decoration:none;font-family:'Sora',sans-serif;transition:border-color .2s,color .2s,background .2s}
+        .btn-ghost:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+        .btn-primary{padding:9px 22px;border-radius:var(--radius-sm);font-size:.875rem;font-weight:600;color:white;background:var(--green);border:none;cursor:pointer;text-decoration:none;font-family:'Sora',sans-serif;box-shadow:0 2px 8px rgba(26,158,107,.25);transition:background .2s,transform .15s}
+        .btn-primary:hover{background:var(--teal);transform:translateY(-1px)}
+        .nav-admin-btn{padding:7px 14px;border-radius:var(--radius-sm);font-size:.75rem;font-weight:700;color:white;background:var(--ink);border:none;cursor:pointer;font-family:'Sora',sans-serif;letter-spacing:.02em;text-transform:uppercase;transition:background .2s;display:none}
+        .nav-admin-btn:hover{background:#333}
+        /* PAGES */
+        .page{display:none}.page.active{display:block}
+        /* HERO */
+        .hero{min-height:100vh;padding:120px 5% 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;overflow:hidden}
+        .hero::before{content:'';position:absolute;top:0;right:0;width:55%;height:100%;background:radial-gradient(ellipse at 80% 50%,rgba(46,201,138,.08) 0%,transparent 70%);pointer-events:none}
+        .hero-title{font-family:'DM Serif Display',serif;font-size:clamp(2.6rem,5vw,4rem);line-height:1.12;color:var(--ink);margin-bottom:24px}
+        .hero-desc{font-size:1.05rem;line-height:1.7;color:var(--muted);max-width:480px;margin-bottom:40px}
+        .btn-hero-primary{padding:14px 28px;border-radius:12px;font-size:.95rem;font-weight:600;color:white;background:var(--green);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(26,158,107,.3);display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-family:'Sora',sans-serif;transition:background .2s,transform .15s}
+        .btn-hero-primary:hover{background:var(--teal);transform:translateY(-2px)}
+        section{padding:100px 5%}
+        .section-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);line-height:1.2;color:var(--ink);max-width:560px;margin-bottom:16px}
+        .section-desc{font-size:1rem;color:var(--muted);line-height:1.7;max-width:500px;margin-bottom:52px}
+        /* CURRICULUM */
+        .curriculum-hero{padding:120px 5% 60px;text-align:center}
+        .curriculum-hero .section-title{max-width:640px;margin:0 auto 16px}
+        .curriculum-hero .section-desc{max-width:540px;margin:0 auto}
+        .modules-list{padding:0 5% 100px;max-width:860px;margin:0 auto}
+        .module-card{background:white;border-radius:var(--radius);border:1px solid var(--border);margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .2s}
+        .module-card:hover{box-shadow:var(--shadow-md)}
+        .module-header{display:flex;align-items:center;gap:18px;padding:24px 28px;cursor:pointer;user-select:none}
+        .module-num{width:42px;height:42px;flex-shrink:0;border-radius:12px;background:var(--green);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.85rem;font-weight:500;color:white}
+        .module-info{flex:1}
+        .module-title{font-size:1rem;font-weight:700;color:var(--ink);margin-bottom:3px}
+        .module-meta{font-size:.78rem;color:var(--muted)}
+        .module-chevron{color:var(--muted);transition:transform .3s;font-size:.9rem}
+        .module-card.open .module-chevron{transform:rotate(180deg);color:var(--green)}
+        .module-lessons{display:none;border-top:1px solid var(--border)}
+        .module-card.open .module-lessons{display:block}
+        .lesson-row{display:flex;align-items:center;gap:14px;padding:14px 28px;cursor:pointer;transition:background .15s;border-bottom:1px solid rgba(226,224,219,.5)}
+        .lesson-row:last-child{border-bottom:none}
+        .lesson-row:hover{background:var(--bg)}
+        .lesson-type-icon{width:32px;height:32px;flex-shrink:0;border-radius:8px;background:var(--green-light);display:flex;align-items:center;justify-content:center;font-size:.85rem}
+        .lesson-name{flex:1;font-size:.875rem;font-weight:500;color:var(--ink2)}
+        .lesson-type-tag{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:100px;background:var(--bg2);color:var(--muted)}
+        .lesson-type-tag.video{background:#eef0fe;color:#5060e8}
+        .lesson-type-tag.article{background:#fdf5e6;color:#b07a10}
+        .lesson-type-tag.interactive{background:var(--green-light);color:var(--green)}
+        .lesson-type-tag.quiz{background:#fdf0f3;color:#b53053}
+        .progress-module{padding:18px 28px;background:var(--bg);border-top:1px solid var(--border)}
+        .pm-label{font-size:.75rem;font-weight:600;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between}
+        .pm-bar{height:5px;background:var(--border);border-radius:100px;overflow:hidden}
+        .pm-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-mid));border-radius:100px;transition:width 1s ease}
+        /* LESSON */
+        .lesson-page{padding:100px 5% 80px;max-width:900px;margin:0 auto}
+        .lesson-breadcrumb{font-size:.78rem;color:var(--muted);margin-bottom:24px;display:flex;align-items:center;gap:6px}
+        .lesson-breadcrumb a{color:var(--green);text-decoration:none;font-weight:500;cursor:pointer}
+        .lesson-h1{font-family:'DM Serif Display',serif;font-size:1.9rem;color:var(--ink);margin-bottom:24px}
+        .placeholder-article{background:white;border-radius:var(--radius);border:1px solid var(--border);padding:40px;margin-bottom:32px;box-shadow:var(--shadow-sm)}
+        .article-content{line-height:1.8;color:var(--ink2)}
+        .article-content h2{font-family:'DM Serif Display',serif;font-size:1.45rem;color:var(--ink);margin:0 0 14px;line-height:1.3}
+        .article-content h3{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--ink);margin:28px 0 10px}
+        .article-content p{font-size:.95rem;color:var(--ink2);line-height:1.75;margin-bottom:16px}
+        .article-content ul,.article-content ol{font-size:.9rem;color:var(--ink2);line-height:1.85;margin:8px 0 16px 20px}
+        .article-content li{margin-bottom:4px}
+        .article-content strong{color:var(--ink)}
+        .article-callout{background:var(--green-light);border-left:3px solid var(--green);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 18px;margin:16px 0;font-size:.88rem;color:var(--teal-dark);line-height:1.65}
+        .lesson-video-embed{width:100%;aspect-ratio:16/9;border-radius:var(--radius);overflow:hidden;margin-bottom:32px;box-shadow:var(--shadow-lg)}
+        .lesson-video-embed iframe{width:100%;height:100%;border:none}
+        .placeholder-video{width:100%;aspect-ratio:16/9;background:linear-gradient(145deg,#0d1a14,#1a2e22);border-radius:var(--radius);overflow:hidden;margin-bottom:32px;box-shadow:var(--shadow-lg);display:flex;align-items:center;justify-content:center}
+        /* QUIZ */
+        .quiz-container{background:white;border-radius:var(--radius);border:1px solid var(--border);padding:40px;margin-bottom:32px;box-shadow:var(--shadow-sm)}
+        .quiz-question{margin-bottom:28px}
+        .quiz-q-num{font-size:.72rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+        .quiz-q-text{font-size:1.05rem;font-weight:600;color:var(--ink);margin-bottom:16px}
+        .quiz-options{display:flex;flex-direction:column;gap:10px}
+        .quiz-option{padding:14px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:white;font-size:.9rem;color:var(--ink2);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px}
+        .quiz-option:hover{border-color:var(--green);background:var(--green-light)}
+        .quiz-option input[type="radio"]{cursor:pointer;accent-color:var(--green)}
+        .quiz-option.correct{border-color:#10b981;background:#ecfdf5}
+        .quiz-option.incorrect{border-color:var(--accent-rose);background:#fdf0f3}
+        .quiz-feedback{margin-top:12px;padding:14px 16px;border-radius:var(--radius-sm);font-size:.88rem;display:none}
+        .quiz-feedback.correct{background:#ecfdf5;border-left:3px solid #10b981;color:#065f46}
+        .quiz-feedback.incorrect{background:#fdf0f3;border-left:3px solid var(--accent-rose);color:#b53053}
+        /* TOOLS */
+        .tool-container{background:white;border-radius:var(--radius);border:1px solid var(--border);padding:40px;margin-bottom:32px;box-shadow:var(--shadow-sm)}
+        .tool-title{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--ink);margin-bottom:8px}
+        .tool-desc{font-size:.9rem;color:var(--muted);margin-bottom:24px}
+        /* ADMIN */
+        #page-admin{min-height:100vh;padding-top:68px;background:var(--bg)}
+        .admin-topbar{position:sticky;top:68px;z-index:50;background:var(--ink);padding:18px 5%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+        .admin-topbar-title{font-family:'DM Serif Display',serif;font-size:1.15rem;color:white;margin-bottom:2px}
+        .admin-topbar-sub{font-size:.75rem;color:rgba(255,255,255,.55)}
+        .btn-export{padding:11px 22px;border-radius:var(--radius-sm);background:var(--green);color:white;border:none;font-family:'Sora',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;transition:background .2s,transform .15s;white-space:nowrap}
+        .btn-export:hover{background:var(--teal);transform:translateY(-1px)}
+        .admin-content{padding:36px 5%;max-width:960px;margin:0 auto}
+        .admin-intro{background:white;border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:24px;font-size:.85rem;color:var(--ink2);line-height:1.75}
+        /* PROGRESS CARDS */
+        .admin-progress-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:24px}
+        .admin-progress-card{background:white;border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 18px}
+        .admin-progress-card-title{font-size:.78rem;font-weight:700;color:var(--ink);margin-bottom:8px}
+        .admin-progress-bar{height:5px;background:var(--border);border-radius:100px;overflow:hidden;margin-bottom:6px}
+        .admin-progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-mid));border-radius:100px}
+        .admin-progress-label{font-size:.7rem;color:var(--muted)}
+        .admin-progress-label.complete{color:var(--green);font-weight:600}
+        /* CHAPTER LIST */
+        .admin-chapter{background:white;border:1px solid var(--border);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+        .admin-chapter-header{display:flex;align-items:center;justify-content:space-between;padding:15px 22px;cursor:pointer;font-weight:600;font-size:.9rem;color:var(--ink);user-select:none;transition:background .15s}
+        .admin-chapter-header:hover{background:var(--bg)}
+        .admin-chapter-header .hdr-right{display:flex;align-items:center;gap:10px}
+        .admin-chapter-header .chevron{transition:transform .3s;color:var(--muted);font-size:.8rem}
+        .admin-chapter-header.open .chevron{transform:rotate(180deg)}
+        .admin-chapter-counter{font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:100px;background:var(--bg2);color:var(--muted)}
+        .admin-chapter-counter.full{background:var(--green-light);color:var(--green)}
+        .admin-chapter-lessons{display:none}
+        .admin-chapter-lessons.open{display:block}
+        .admin-lesson-row{display:flex;align-items:center;gap:10px;padding:11px 22px;border-top:1px solid rgba(226,224,219,.5);transition:background .15s}
+        .admin-lesson-row:hover{background:var(--bg)}
+        .admin-type-badge{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:100px;flex-shrink:0;min-width:62px;text-align:center}
+        .admin-type-badge.video{background:#eef0fe;color:#5060e8}
+        .admin-type-badge.article{background:#fdf5e6;color:#b07a10}
+        .admin-type-badge.interactive{background:var(--green-light);color:var(--green)}
+        .admin-type-badge.quiz{background:#fdf0f3;color:#b53053}
+        .admin-lesson-name{flex:1;font-size:.84rem;color:var(--ink2)}
+        .admin-status-pill{font-size:.63rem;font-weight:700;padding:3px 9px;border-radius:100px;flex-shrink:0;white-space:nowrap}
+        .admin-status-pill.live{color:var(--green);background:var(--green-light);border:1px solid rgba(26,158,107,.2)}
+        .admin-status-pill.empty{color:var(--muted);background:var(--bg2);border:1px solid var(--border)}
+        .admin-status-pill.quiz-pill{color:#b53053;background:#fdf0f3;border:1px solid rgba(224,92,122,.15)}
+        .admin-edit-btn{padding:5px 13px;border-radius:6px;border:1.5px solid var(--border);background:white;font-family:'Sora',sans-serif;font-size:.76rem;font-weight:600;color:var(--ink2);cursor:pointer;transition:border-color .2s,color .2s,background .2s;flex-shrink:0}
+        .admin-edit-btn:hover{border-color:var(--green);color:var(--green);background:var(--green-light)}
+        .admin-edit-btn.has-content{border-color:var(--green);color:var(--green);background:var(--green-light)}
+        /* DRAWER */
+        .edit-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:199;backdrop-filter:blur(2px)}
+        .edit-overlay.show{display:block}
+        .edit-drawer{position:fixed;top:0;right:-110%;width:min(680px,100%);height:100vh;background:white;box-shadow:-6px 0 50px rgba(0,0,0,.15);z-index:200;display:flex;flex-direction:column;transition:right .35s cubic-bezier(.4,0,.2,1)}
+        .edit-drawer.open{right:0}
+        .edit-drawer-header{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg)}
+        .edit-drawer-header h3{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--ink)}
+        .edit-drawer-close{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;color:var(--muted);transition:background .15s}
+        .edit-drawer-close:hover{background:var(--bg2);color:var(--ink)}
+        .edit-drawer-body{flex:1;padding:24px 28px;overflow-y:auto}
+        .edit-drawer-footer{padding:16px 28px;border-top:1px solid var(--border);display:flex;gap:10px;flex-shrink:0;background:var(--bg)}
+        .edit-field{margin-bottom:20px}
+        .edit-field label{display:block;font-size:.72rem;font-weight:700;color:var(--ink2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px}
+        .edit-field input[type=text],.edit-field textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'Sora',sans-serif;font-size:.9rem;color:var(--ink);outline:none;transition:border-color .2s;background:white}
+        .edit-field input[type=text]:focus,.edit-field textarea:focus{border-color:var(--green)}
+        .edit-field textarea{height:260px;font-family:'DM Mono',monospace;font-size:.77rem;resize:vertical;line-height:1.6}
+        .edit-tip{background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:20px}
+        .edit-tip strong{color:var(--ink2)}
+        .edit-saved-url{margin-top:8px;font-size:.75rem;color:var(--muted)}
+        .edit-saved-url code{background:var(--bg2);padding:2px 6px;border-radius:4px;font-family:'DM Mono',monospace;font-size:.72rem}
+        .btn-save-lesson{flex:1;padding:11px;border-radius:var(--radius-sm);background:var(--green);color:white;border:none;font-family:'Sora',sans-serif;font-size:.875rem;font-weight:700;cursor:pointer;transition:background .2s}
+        .btn-save-lesson:hover{background:var(--teal)}
+        .btn-cancel-lesson{padding:11px 16px;border-radius:var(--radius-sm);border:1.5px solid var(--border);background:white;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .2s}
+        .btn-cancel-lesson:hover{border-color:var(--green);color:var(--green)}
+        .btn-clear-lesson{padding:11px 16px;border-radius:var(--radius-sm);border:1.5px solid rgba(224,92,122,.25);background:#fdf0f3;font-family:'Sora',sans-serif;font-size:.82rem;font-weight:600;color:#b53053;cursor:pointer;transition:all .2s}
+        .btn-clear-lesson:hover{background:#fce4ea}
+        /* FOOTER */
+        footer{background:var(--ink);color:rgba(255,255,255,.6);padding:60px 5% 32px}
+        .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+        .footer-col h4{font-size:.78rem;font-weight:700;color:rgba(255,255,255,.9);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px}
+        .footer-col a{display:block;font-size:.84rem;color:rgba(255,255,255,.5);text-decoration:none;margin-bottom:8px;transition:color .2s;cursor:pointer}
+        .footer-col a:hover{color:var(--green-mid)}
+        .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;border-top:1px solid rgba(255,255,255,.08);flex-wrap:wrap;gap:12px}
+        .footer-bottom span{font-size:.78rem}
+        @media(max-width:768px){
+            .hero{grid-template-columns:1fr;padding-top:100px}
+            .nav-links{display:none}
+            .footer-grid{grid-template-columns:1fr 1fr}
+            .admin-progress-grid{grid-template-columns:1fr 1fr}
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginOverlay" style="display: none;">
+    <div class="login-wrap">
+        <div class="login-logo"><div class="login-logo-icon">C$</div>CashCourse</div>
+        <div class="login-card">
+            <h2 class="login-title">Welcome back</h2>
+            <p class="login-sub">Sign in to access your courses and manage content.</p>
+            <div class="login-error" id="loginError">Incorrect email or password. Please try again.</div>
+            <div class="login-field"><label>Email Address</label><input type="email" id="loginEmail" placeholder="you@example.com" onkeydown="if(event.key==='Enter')doLogin()"></div>
+            <div class="login-field"><label>Password</label><input type="password" id="loginPassword" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+            <button class="btn-login" onclick="doLogin()">Sign In →</button>
+            <div class="login-hint"><strong>Demo:</strong> demo@cashcourse.com / cashcourse<br><strong>Admin:</strong> admin@cashcourse.com / cashcourse2025</div>
+        </div>
+    </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav" class="scrolled">
+    <div class="nav-logo" onclick="showPage('home')"><div class="nav-logo-icon">C$</div>CashCourse</div>
+    <ul class="nav-links">
+        <li><a href="#" onclick="showPage('home');return false;" id="nav-home">Home</a></li>
+        <li><a href="#" onclick="showPage('curriculum');return false;" id="nav-curriculum">Curriculum</a></li>
+        <li><a href="#" onclick="showPage('about');return false;" id="nav-about">About</a></li>
+    </ul>
+    <div class="nav-cta">
+        <button id="adminNavBtn" class="nav-admin-btn" onclick="showPage('admin')" style="display: flex;">⚙ Admin</button>
+        <button class="btn-ghost" onclick="doLogout()">Log Out</button>
+        <a href="#" onclick="showPage('curriculum');return false;" class="btn-primary">Start Learning</a>
+    </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page">
+    <section class="hero">
+        <div>
+            <h1 class="hero-title">Learn Money.<br>Build Your <em style="font-style:italic;color:var(--green)">Future.</em></h1>
+            <p class="hero-desc">CashCourse turns complex financial concepts into short, visual lessons anyone can understand — from budgeting basics to building lasting wealth.</p>
+            <div style="display:flex;gap:14px;flex-wrap:wrap">
+                <a href="#" onclick="showPage('curriculum');return false;" class="btn-hero-primary">Start Learning →</a>
+            </div>
+        </div>
+    </section>
+    <section style="background:white;padding:80px 5%;text-align:center">
+        <h2 class="section-title" style="max-width:500px;margin:0 auto">9 Chapters. 63 Lessons. Completely Free.</h2>
+        <p class="section-desc" style="max-width:560px;margin:0 auto">Understanding Money · Budgeting &amp; Spending · Saving · Credit &amp; Debt · Investing · Taxes · Real-Life Decisions · Building Wealth · Financial Psychology</p>
+    </section>
+</div>
+
+<!-- CURRICULUM -->
+<div id="page-curriculum" class="page">
+    <div class="curriculum-hero">
+        <h2 class="section-title">Full Curriculum</h2>
+        <p class="section-desc">Nine chapters building from financial basics to wealth creation. Learn at your own pace.</p>
+    </div>
+    <div class="modules-list" id="modulesList"><div class="module-card open" id="mod-0">
+      <div class="module-header" onclick="toggleModule('mod-0')">
+        <div class="module-num">01</div>
+        <div class="module-info">
+          <div class="module-title">💰 Understanding Money</div>
+          <div class="module-meta">7 lessons · ~35 min · Beginner</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        <div class="lesson-row" onclick="openLesson(0,0)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">What Is Money?</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(0,1)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">How Banks Work</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(0,2)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">The History of Money</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(0,3)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Inflation Explained</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(0,4)">
+        <div class="lesson-type-icon">🛠️</div>
+        <div class="lesson-name">Needs vs. Wants Exercise</div>
+        <span class="lesson-type-tag interactive">interactive</span>
+      </div><div class="lesson-row" onclick="openLesson(0,5)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Income vs. Wealth</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(0,6)">
+        <div class="lesson-type-icon">✏️</div>
+        <div class="lesson-name">Understanding Money Quiz</div>
+        <span class="lesson-type-tag quiz">quiz</span>
+      </div>
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>3 / 7 complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:43%"></div></div>
+        </div>
+      </div></div><div class="module-card" id="mod-1">
+      <div class="module-header" onclick="toggleModule('mod-1')">
+        <div class="module-num">02</div>
+        <div class="module-info">
+          <div class="module-title">📊 Budgeting &amp; Spending</div>
+          <div class="module-meta">7 lessons · ~38 min · Beginner</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        <div class="lesson-row" onclick="openLesson(1,0)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Why Budgeting Matters</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(1,1)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">How to Create a Simple Budget</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(1,2)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Fixed vs. Variable Expenses</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(1,3)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">The 50/30/20 Rule</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(1,4)">
+        <div class="lesson-type-icon">🛠️</div>
+        <div class="lesson-name">Create Your First Budget</div>
+        <span class="lesson-type-tag interactive">interactive</span>
+      </div><div class="lesson-row" onclick="openLesson(1,5)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Lifestyle Inflation</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(1,6)">
+        <div class="lesson-type-icon">✏️</div>
+        <div class="lesson-name">Budgeting Quiz</div>
+        <span class="lesson-type-tag quiz">quiz</span>
+      </div>
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>5 / 7 complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:71%"></div></div>
+        </div>
+      </div></div><div class="module-card" id="mod-2">
+      <div class="module-header" onclick="toggleModule('mod-2')">
+        <div class="module-num">03</div>
+        <div class="module-info">
+          <div class="module-title">🏦 Saving &amp; Emergency Funds</div>
+          <div class="module-meta">7 lessons · ~36 min · Beginner</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        <div class="lesson-row" onclick="openLesson(2,0)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Why Saving Matters</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(2,1)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Emergency Funds Explained</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(2,2)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Short vs. Long-Term Savings</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(2,3)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">High-Yield Savings Accounts</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(2,4)">
+        <div class="lesson-type-icon">🛠️</div>
+        <div class="lesson-name">Emergency Fund Calculator</div>
+        <span class="lesson-type-tag interactive">interactive</span>
+      </div><div class="lesson-row" onclick="openLesson(2,5)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Automating Your Savings</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(2,6)">
+        <div class="lesson-type-icon">✏️</div>
+        <div class="lesson-name">Savings Quiz</div>
+        <span class="lesson-type-tag quiz">quiz</span>
+      </div>
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>3 / 7 complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:43%"></div></div>
+        </div>
+      </div></div><div class="module-card" id="mod-3">
+      <div class="module-header" onclick="toggleModule('mod-3')">
+        <div class="module-num">04</div>
+        <div class="module-info">
+          <div class="module-title">💳 Credit &amp; Debt</div>
+          <div class="module-meta">7 lessons · ~40 min · Intermediate</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        <div class="lesson-row" onclick="openLesson(3,0)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">What Is Credit?</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(3,1)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Credit Scores</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(3,2)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Credit Cards Explained</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(3,3)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Interest &amp; APR</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(3,4)">
+        <div class="lesson-type-icon">🛠️</div>
+        <div class="lesson-name">Debt Interest Simulator</div>
+        <span class="lesson-type-tag interactive">interactive</span>
+      </div><div class="lesson-row" onclick="openLesson(3,5)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Good vs. Bad Debt</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(3,6)">
+        <div class="lesson-type-icon">✏️</div>
+        <div class="lesson-name">Credit &amp; Debt Quiz</div>
+        <span class="lesson-type-tag quiz">quiz</span>
+      </div>
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>1 / 7 complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:14%"></div></div>
+        </div>
+      </div></div><div class="module-card" id="mod-4">
+      <div class="module-header" onclick="toggleModule('mod-4')">
+        <div class="module-num">05</div>
+        <div class="module-info">
+          <div class="module-title">📈 Investing Basics</div>
+          <div class="module-meta">7 lessons · ~42 min · Intermediate</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        <div class="lesson-row" onclick="openLesson(4,0)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">What Is Investing?</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(4,1)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Stocks vs. Bonds</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(4,2)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Index Funds Explained</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(4,3)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Compound Interest</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(4,4)">
+        <div class="lesson-type-icon">🛠️</div>
+        <div class="lesson-name">Compound Interest Calculator</div>
+        <span class="lesson-type-tag interactive">interactive</span>
+      </div><div class="lesson-row" onclick="openLesson(4,5)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Risk vs. Return</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(4,6)">
+        <div class="lesson-type-icon">✏️</div>
+        <div class="lesson-name">Investing Fundamentals Quiz</div>
+        <span class="lesson-type-tag quiz">quiz</span>
+      </div>
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>7 / 7 complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:100%"></div></div>
+        </div>
+      </div></div><div class="module-card" id="mod-5">
+      <div class="module-header" onclick="toggleModule('mod-5')">
+        <div class="module-num">06</div>
+        <div class="module-info">
+          <div class="module-title">🧾 Taxes</div>
+          <div class="module-meta">7 lessons · ~38 min · Intermediate</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        <div class="lesson-row" onclick="openLesson(5,0)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Why Taxes Exist</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(5,1)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">How Income Taxes Work</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(5,2)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Tax Brackets Explained</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(5,3)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Paychecks &amp; Withholding</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(5,4)">
+        <div class="lesson-type-icon">🛠️</div>
+        <div class="lesson-name">Tax Bracket Visualizer</div>
+        <span class="lesson-type-tag interactive">interactive</span>
+      </div><div class="lesson-row" onclick="openLesson(5,5)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Common Tax Mistakes</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(5,6)">
+        <div class="lesson-type-icon">✏️</div>
+        <div class="lesson-name">Tax Basics Quiz</div>
+        <span class="lesson-type-tag quiz">quiz</span>
+      </div>
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>7 / 7 complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:100%"></div></div>
+        </div>
+      </div></div><div class="module-card" id="mod-6">
+      <div class="module-header" onclick="toggleModule('mod-6')">
+        <div class="module-num">07</div>
+        <div class="module-info">
+          <div class="module-title">🏠 Real-Life Decisions</div>
+          <div class="module-meta">7 lessons · ~45 min · Intermediate</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        <div class="lesson-row" onclick="openLesson(6,0)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Major Financial Decisions</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(6,1)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Renting vs. Buying</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(6,2)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Buying a Car</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(6,3)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Insurance Explained</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(6,4)">
+        <div class="lesson-type-icon">🛠️</div>
+        <div class="lesson-name">Rent vs. Buy Calculator</div>
+        <span class="lesson-type-tag interactive">interactive</span>
+      </div><div class="lesson-row" onclick="openLesson(6,5)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Salary Negotiation Basics</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(6,6)">
+        <div class="lesson-type-icon">✏️</div>
+        <div class="lesson-name">Financial Decisions Quiz</div>
+        <span class="lesson-type-tag quiz">quiz</span>
+      </div>
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>6 / 7 complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:86%"></div></div>
+        </div>
+      </div></div><div class="module-card" id="mod-7">
+      <div class="module-header" onclick="toggleModule('mod-7')">
+        <div class="module-num">08</div>
+        <div class="module-info">
+          <div class="module-title">🌱 Building Wealth</div>
+          <div class="module-meta">7 lessons · ~40 min · Advanced</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        <div class="lesson-row" onclick="openLesson(7,0)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">What Is Net Worth?</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(7,1)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Assets vs. Liabilities</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(7,2)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">How Wealth Builds Over Time</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(7,3)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Retirement Accounts</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(7,4)">
+        <div class="lesson-type-icon">🛠️</div>
+        <div class="lesson-name">Net Worth Calculator</div>
+        <span class="lesson-type-tag interactive">interactive</span>
+      </div><div class="lesson-row" onclick="openLesson(7,5)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Financial Independence</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(7,6)">
+        <div class="lesson-type-icon">✏️</div>
+        <div class="lesson-name">Wealth Building Quiz</div>
+        <span class="lesson-type-tag quiz">quiz</span>
+      </div>
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>6 / 7 complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:86%"></div></div>
+        </div>
+      </div></div><div class="module-card" id="mod-8">
+      <div class="module-header" onclick="toggleModule('mod-8')">
+        <div class="module-num">09</div>
+        <div class="module-info">
+          <div class="module-title">🧠 Financial Psychology</div>
+          <div class="module-meta">7 lessons · ~35 min · All Levels</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        <div class="lesson-row" onclick="openLesson(8,0)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Why People Overspend</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(8,1)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Consumer Psychology</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(8,2)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Marketing &amp; Spending</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(8,3)">
+        <div class="lesson-type-icon">▶</div>
+        <div class="lesson-name">Delayed Gratification</div>
+        <span class="lesson-type-tag video">video</span>
+      </div><div class="lesson-row" onclick="openLesson(8,4)">
+        <div class="lesson-type-icon">🛠️</div>
+        <div class="lesson-name">Spending Habit Tracker</div>
+        <span class="lesson-type-tag interactive">interactive</span>
+      </div><div class="lesson-row" onclick="openLesson(8,5)">
+        <div class="lesson-type-icon">📖</div>
+        <div class="lesson-name">Building Healthy Money Habits</div>
+        <span class="lesson-type-tag article">article</span>
+      </div><div class="lesson-row" onclick="openLesson(8,6)">
+        <div class="lesson-type-icon">✏️</div>
+        <div class="lesson-name">Behavior &amp; Money Quiz</div>
+        <span class="lesson-type-tag quiz">quiz</span>
+      </div>
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>0 / 7 complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:0%"></div></div>
+        </div>
+      </div></div></div>
+</div>
+
+<!-- LESSON -->
+<div id="page-lesson" class="page">
+    <div class="lesson-page">
+        <div class="lesson-breadcrumb"><a onclick="showPage('curriculum')">← Curriculum</a> <span>›</span> <span id="lessonBreadChapter">Ch.1</span> <span>›</span> <span id="lessonBreadTitle">Lesson</span></div>
+        <h1 class="lesson-h1" id="lessonTitle">Lesson Title</h1>
+        <div id="lessonContent"></div>
+    </div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+    <section style="padding:120px 5% 80px;text-align:center">
+        <h2 class="section-title" style="max-width:560px;margin:0 auto 24px">About CashCourse</h2>
+        <p style="max-width:500px;margin:0 auto;font-size:1rem;color:var(--muted);line-height:1.7">We believe financial literacy should be free, accessible, and practical. CashCourse provides comprehensive financial education for everyone, no matter where they start.</p>
+    </section>
+</div>
+
+<!-- ADMIN -->
+<div id="page-admin" class="page active">
+    <div class="admin-topbar">
+        <div>
+            <div class="admin-topbar-title">⚙️ Content Manager</div>
+            <div class="admin-topbar-sub">Add YouTube links &amp; article HTML to lessons, then download the updated file.</div>
+        </div>
+        <button class="btn-export" onclick="exportHTML()">⬇ Download Updated File</button>
+    </div>
+    <div class="admin-content">
+        <div class="admin-intro">
+            <strong>How it works:</strong> Click <strong>Edit</strong> on any lesson to add a YouTube URL (videos) or paste article HTML (articles). <span style="color:var(--green);font-weight:600">✓ Live</span> = content is saved. Click <strong>Download Updated File</strong> to export and upload to GitHub Pages.
+        </div>
+        <div class="admin-progress-grid" id="adminProgressGrid"><div class="admin-progress-card">
+      <div class="admin-progress-card-title">💰 Ch.01 — Understanding Money</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:67%"></div></div>
+      <div class="admin-progress-label">
+        4 / 6 lessons live
+      </div></div><div class="admin-progress-card">
+      <div class="admin-progress-card-title">📊 Ch.02 — Budgeting &amp; Spending</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:83%"></div></div>
+      <div class="admin-progress-label">
+        5 / 6 lessons live
+      </div></div><div class="admin-progress-card">
+      <div class="admin-progress-card-title">🏦 Ch.03 — Saving &amp; Emergency Funds</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:67%"></div></div>
+      <div class="admin-progress-label">
+        4 / 6 lessons live
+      </div></div><div class="admin-progress-card">
+      <div class="admin-progress-card-title">💳 Ch.04 — Credit &amp; Debt</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:67%"></div></div>
+      <div class="admin-progress-label">
+        4 / 6 lessons live
+      </div></div><div class="admin-progress-card">
+      <div class="admin-progress-card-title">📈 Ch.05 — Investing Basics</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:100%"></div></div>
+      <div class="admin-progress-label complete">
+        6 / 6 lessons live · ✓ Complete
+      </div></div><div class="admin-progress-card">
+      <div class="admin-progress-card-title">🧾 Ch.06 — Taxes</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:100%"></div></div>
+      <div class="admin-progress-label complete">
+        6 / 6 lessons live · ✓ Complete
+      </div></div><div class="admin-progress-card">
+      <div class="admin-progress-card-title">🏠 Ch.07 — Real-Life Decisions</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:83%"></div></div>
+      <div class="admin-progress-label">
+        5 / 6 lessons live
+      </div></div><div class="admin-progress-card">
+      <div class="admin-progress-card-title">🌱 Ch.08 — Building Wealth</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:83%"></div></div>
+      <div class="admin-progress-label">
+        5 / 6 lessons live
+      </div></div><div class="admin-progress-card">
+      <div class="admin-progress-card-title">🧠 Ch.09 — Financial Psychology</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:0%"></div></div>
+      <div class="admin-progress-label">
+        0 / 6 lessons live
+      </div></div></div>
+        <div id="adminChapterList"><div class="admin-chapter"><div class="admin-chapter-header open">
+      <span>💰 Ch.01 — Understanding Money</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter">4/6 live</span>
+        <span class="chevron">▾</span>
+      </div></div><div class="admin-chapter-lessons open"><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">What Is Money?</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('0-0','video','What Is Money?')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">How Banks Work</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('0-1','video','How Banks Work')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">The History of Money</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('0-2','article','The History of Money')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Inflation Explained</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('0-3','article','Inflation Explained')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge interactive">interactive</span>
+        <span class="admin-lesson-name">Needs vs. Wants Exercise</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('0-4','interactive','Needs vs. Wants Exercise')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Income vs. Wealth</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('0-5','article','Income vs. Wealth')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge quiz">quiz</span>
+        <span class="admin-lesson-name">Understanding Money Quiz</span>
+        <span class="admin-status-pill quiz-pill">Quiz</span>
+        </div></div></div><div class="admin-chapter"><div class="admin-chapter-header open">
+      <span>📊 Ch.02 — Budgeting &amp; Spending</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter">5/6 live</span>
+        <span class="chevron">▾</span>
+      </div></div><div class="admin-chapter-lessons open"><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Why Budgeting Matters</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('1-0','video','Why Budgeting Matters')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">How to Create a Simple Budget</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('1-1','video','How to Create a Simple Budget')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Fixed vs. Variable Expenses</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('1-2','article','Fixed vs. Variable Expenses')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">The 50/30/20 Rule</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('1-3','video','The 50/30/20 Rule')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge interactive">interactive</span>
+        <span class="admin-lesson-name">Create Your First Budget</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('1-4','interactive','Create Your First Budget')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Lifestyle Inflation</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('1-5','article','Lifestyle Inflation')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge quiz">quiz</span>
+        <span class="admin-lesson-name">Budgeting Quiz</span>
+        <span class="admin-status-pill quiz-pill">Quiz</span>
+        </div></div></div><div class="admin-chapter"><div class="admin-chapter-header open">
+      <span>🏦 Ch.03 — Saving &amp; Emergency Funds</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter">4/6 live</span>
+        <span class="chevron">▾</span>
+      </div></div><div class="admin-chapter-lessons open"><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Why Saving Matters</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('2-0','video','Why Saving Matters')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Emergency Funds Explained</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('2-1','video','Emergency Funds Explained')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Short vs. Long-Term Savings</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('2-2','article','Short vs. Long-Term Savings')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">High-Yield Savings Accounts</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('2-3','video','High-Yield Savings Accounts')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge interactive">interactive</span>
+        <span class="admin-lesson-name">Emergency Fund Calculator</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('2-4','interactive','Emergency Fund Calculator')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Automating Your Savings</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('2-5','article','Automating Your Savings')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge quiz">quiz</span>
+        <span class="admin-lesson-name">Savings Quiz</span>
+        <span class="admin-status-pill quiz-pill">Quiz</span>
+        </div></div></div><div class="admin-chapter"><div class="admin-chapter-header">
+      <span>💳 Ch.04 — Credit &amp; Debt</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter">4/6 live</span>
+        <span class="chevron">▾</span>
+      </div></div><div class="admin-chapter-lessons"><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">What Is Credit?</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('3-0','video','What Is Credit?')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Credit Scores</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('3-1','video','Credit Scores')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Credit Cards Explained</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('3-2','article','Credit Cards Explained')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Interest &amp; APR</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('3-3','article','Interest &amp; APR')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge interactive">interactive</span>
+        <span class="admin-lesson-name">Debt Interest Simulator</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('3-4','interactive','Debt Interest Simulator')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Good vs. Bad Debt</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('3-5','article','Good vs. Bad Debt')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge quiz">quiz</span>
+        <span class="admin-lesson-name">Credit &amp; Debt Quiz</span>
+        <span class="admin-status-pill quiz-pill">Quiz</span>
+        </div></div></div><div class="admin-chapter"><div class="admin-chapter-header">
+      <span>📈 Ch.05 — Investing Basics</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter full">6/6 live</span>
+        <span class="chevron">▾</span>
+      </div></div><div class="admin-chapter-lessons"><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">What Is Investing?</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('4-0','video','What Is Investing?')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Stocks vs. Bonds</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('4-1','video','Stocks vs. Bonds')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Index Funds Explained</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('4-2','article','Index Funds Explained')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Compound Interest</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('4-3','video','Compound Interest')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge interactive">interactive</span>
+        <span class="admin-lesson-name">Compound Interest Calculator</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('4-4','interactive','Compound Interest Calculator')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Risk vs. Return</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('4-5','article','Risk vs. Return')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge quiz">quiz</span>
+        <span class="admin-lesson-name">Investing Fundamentals Quiz</span>
+        <span class="admin-status-pill quiz-pill">Quiz</span>
+        </div></div></div><div class="admin-chapter"><div class="admin-chapter-header open">
+      <span>🧾 Ch.06 — Taxes</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter full">6/6 live</span>
+        <span class="chevron">▾</span>
+      </div></div><div class="admin-chapter-lessons open"><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Why Taxes Exist</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('5-0','video','Why Taxes Exist')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">How Income Taxes Work</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('5-1','video','How Income Taxes Work')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Tax Brackets Explained</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('5-2','article','Tax Brackets Explained')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Paychecks &amp; Withholding</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('5-3','video','Paychecks &amp; Withholding')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge interactive">interactive</span>
+        <span class="admin-lesson-name">Tax Bracket Visualizer</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('5-4','interactive','Tax Bracket Visualizer')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Common Tax Mistakes</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('5-5','article','Common Tax Mistakes')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge quiz">quiz</span>
+        <span class="admin-lesson-name">Tax Basics Quiz</span>
+        <span class="admin-status-pill quiz-pill">Quiz</span>
+        </div></div></div><div class="admin-chapter"><div class="admin-chapter-header">
+      <span>🏠 Ch.07 — Real-Life Decisions</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter">5/6 live</span>
+        <span class="chevron">▾</span>
+      </div></div><div class="admin-chapter-lessons"><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Major Financial Decisions</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('6-0','video','Major Financial Decisions')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Renting vs. Buying</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('6-1','video','Renting vs. Buying')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Buying a Car</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('6-2','article','Buying a Car')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Insurance Explained</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('6-3','video','Insurance Explained')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge interactive">interactive</span>
+        <span class="admin-lesson-name">Rent vs. Buy Calculator</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('6-4','interactive','Rent vs. Buy Calculator')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Salary Negotiation Basics</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('6-5','article','Salary Negotiation Basics')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge quiz">quiz</span>
+        <span class="admin-lesson-name">Financial Decisions Quiz</span>
+        <span class="admin-status-pill quiz-pill">Quiz</span>
+        </div></div></div><div class="admin-chapter"><div class="admin-chapter-header">
+      <span>🌱 Ch.08 — Building Wealth</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter">5/6 live</span>
+        <span class="chevron">▾</span>
+      </div></div><div class="admin-chapter-lessons"><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">What Is Net Worth?</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('7-0','video','What Is Net Worth?')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Assets vs. Liabilities</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('7-1','video','Assets vs. Liabilities')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">How Wealth Builds Over Time</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('7-2','article','How Wealth Builds Over Time')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Retirement Accounts</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('7-3','video','Retirement Accounts')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge interactive">interactive</span>
+        <span class="admin-lesson-name">Net Worth Calculator</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('7-4','interactive','Net Worth Calculator')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Financial Independence</span>
+        <span class="admin-status-pill live">✓ Live</span>
+        <button class="admin-edit-btn has-content" onclick="openEditDrawer('7-5','article','Financial Independence')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge quiz">quiz</span>
+        <span class="admin-lesson-name">Wealth Building Quiz</span>
+        <span class="admin-status-pill quiz-pill">Quiz</span>
+        </div></div></div><div class="admin-chapter"><div class="admin-chapter-header">
+      <span>🧠 Ch.09 — Financial Psychology</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter">0/6 live</span>
+        <span class="chevron">▾</span>
+      </div></div><div class="admin-chapter-lessons"><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Why People Overspend</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('8-0','video','Why People Overspend')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Consumer Psychology</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('8-1','video','Consumer Psychology')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Marketing &amp; Spending</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('8-2','article','Marketing &amp; Spending')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge video">video</span>
+        <span class="admin-lesson-name">Delayed Gratification</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('8-3','video','Delayed Gratification')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge interactive">interactive</span>
+        <span class="admin-lesson-name">Spending Habit Tracker</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('8-4','interactive','Spending Habit Tracker')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge article">article</span>
+        <span class="admin-lesson-name">Building Healthy Money Habits</span>
+        <span class="admin-status-pill empty">Empty</span>
+        <button class="admin-edit-btn" onclick="openEditDrawer('8-5','article','Building Healthy Money Habits')">Edit</button></div><div class="admin-lesson-row">
+        <span class="admin-type-badge quiz">quiz</span>
+        <span class="admin-lesson-name">Behavior &amp; Money Quiz</span>
+        <span class="admin-status-pill quiz-pill">Quiz</span>
+        </div></div></div></div>
+    </div>
+</div>
+
+<!-- EDIT DRAWER -->
+<div id="editOverlay" class="edit-overlay" onclick="closeEditDrawer()"></div>
+<div id="editDrawer" class="edit-drawer">
+    <div class="edit-drawer-header">
+        <h3 id="editDrawerTitle">Editing: Tax Brackets Explained</h3>
+        <button class="edit-drawer-close" onclick="closeEditDrawer()">✕</button>
+    </div>
+    <div id="editDrawerBody" class="edit-drawer-body">
+      <div class="edit-tip"><strong>Article HTML</strong> — Use <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code> tags. Add a callout with <code>&lt;div class="article-callout"&gt;...&lt;/div&gt;</code>. Saved content overrides built-in content.</div>
+      <div class="edit-field">
+        <label>Article HTML</label>
+        <textarea id="htmlInput" placeholder="&lt;h2&gt;Title&lt;/h2&gt;&lt;p&gt;Content here...&lt;/p&gt;"></textarea>
+      </div></div>
+    <div class="edit-drawer-footer">
+        <button class="btn-save-lesson" onclick="saveLessonContent()">Save Content</button>
+        <button class="btn-clear-lesson" onclick="clearLessonContent()">Clear</button>
+        <button class="btn-cancel-lesson" onclick="closeEditDrawer()">Cancel</button>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div>
+            <h4>CashCourse</h4>
+            <p style="font-size:.84rem;line-height:1.7">Free financial education for everyone. Learn budgeting, investing, credit, taxes, and more.</p>
+        </div>
+        <div class="footer-col"><h4>Learn</h4><a onclick="showPage('curriculum')">Curriculum</a><a onclick="showPage('about')">About</a></div>
+        <div class="footer-col"><h4>Resources</h4><a href="#">Calculators</a><a href="#">Tools</a></div>
+        <div class="footer-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 CashCourse. All rights reserved.</span></div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// CHAPTERS — corrected titles, types, and completion status
+// completed:true = ✓ Live in admin  |  completed:false = Empty
+// ═══════════════════════════════════════════════════════════════
+const CHAPTERS = [
+  { num:"01", title:"Understanding Money",        icon:"💰", meta:"7 lessons · ~35 min · Beginner",     lessons:[
+    {title:"What Is Money?",              type:"video",       completed:false},
+    {title:"How Banks Work",              type:"video",       completed:true },
+    {title:"The History of Money",        type:"article",     completed:true },
+    {title:"Inflation Explained",         type:"article",     completed:false},
+    {title:"Needs vs. Wants Exercise",    type:"interactive", completed:false},
+    {title:"Income vs. Wealth",           type:"article",     completed:true },
+    {title:"Understanding Money Quiz",    type:"quiz",        completed:false}
+  ]},
+  { num:"02", title:"Budgeting & Spending",        icon:"📊", meta:"7 lessons · ~38 min · Beginner",     lessons:[
+    {title:"Why Budgeting Matters",         type:"video",       completed:true },
+    {title:"How to Create a Simple Budget", type:"video",       completed:true },
+    {title:"Fixed vs. Variable Expenses",   type:"article",     completed:true },
+    {title:"The 50/30/20 Rule",             type:"video",       completed:true },
+    {title:"Create Your First Budget",      type:"interactive", completed:false},
+    {title:"Lifestyle Inflation",           type:"article",     completed:true },
+    {title:"Budgeting Quiz",               type:"quiz",        completed:false}
+  ]},
+  { num:"03", title:"Saving & Emergency Funds",    icon:"🏦", meta:"7 lessons · ~36 min · Beginner",     lessons:[
+    {title:"Why Saving Matters",            type:"video",       completed:true },
+    {title:"Emergency Funds Explained",     type:"video",       completed:true },
+    {title:"Short vs. Long-Term Savings",   type:"article",     completed:true },
+    {title:"High-Yield Savings Accounts",   type:"video",       completed:false},
+    {title:"Emergency Fund Calculator",     type:"interactive", completed:false},
+    {title:"Automating Your Savings",       type:"article",     completed:false},
+    {title:"Savings Quiz",                 type:"quiz",        completed:false}
+  ]},
+  { num:"04", title:"Credit & Debt",               icon:"💳", meta:"7 lessons · ~40 min · Intermediate",  lessons:[
+    {title:"What Is Credit?",              type:"video",       completed:true },
+    {title:"Credit Scores",               type:"video",       completed:false},
+    {title:"Credit Cards Explained",       type:"article",     completed:false},
+    {title:"Interest & APR",              type:"article",     completed:false},
+    {title:"Debt Interest Simulator",      type:"interactive", completed:false},
+    {title:"Good vs. Bad Debt",           type:"article",     completed:false},
+    {title:"Credit & Debt Quiz",          type:"quiz",        completed:false}
+  ]},
+  { num:"05", title:"Investing Basics",             icon:"📈", meta:"7 lessons · ~42 min · Intermediate",  lessons:[
+    {title:"What Is Investing?",            type:"video",       completed:true },
+    {title:"Stocks vs. Bonds",             type:"video",       completed:true },
+    {title:"Index Funds Explained",        type:"article",     completed:true },
+    {title:"Compound Interest",            type:"video",       completed:true },
+    {title:"Compound Interest Calculator", type:"interactive", completed:true },
+    {title:"Risk vs. Return",              type:"article",     completed:true },
+    {title:"Investing Fundamentals Quiz",  type:"quiz",        completed:true }
+  ]},
+  { num:"06", title:"Taxes",                        icon:"🧾", meta:"7 lessons · ~38 min · Intermediate",  lessons:[
+    {title:"Why Taxes Exist",             type:"video",       completed:true },
+    {title:"How Income Taxes Work",        type:"video",       completed:true },
+    {title:"Tax Brackets Explained",       type:"article",     completed:true },
+    {title:"Paychecks & Withholding",     type:"video",       completed:true },
+    {title:"Tax Bracket Visualizer",       type:"interactive", completed:true },
+    {title:"Common Tax Mistakes",          type:"article",     completed:true },
+    {title:"Tax Basics Quiz",             type:"quiz",        completed:true }
+  ]},
+  { num:"07", title:"Real-Life Decisions",          icon:"🏠", meta:"7 lessons · ~45 min · Intermediate",  lessons:[
+    {title:"Major Financial Decisions",    type:"video",       completed:true },
+    {title:"Renting vs. Buying",          type:"video",       completed:true },
+    {title:"Buying a Car",               type:"article",     completed:true },
+    {title:"Insurance Explained",         type:"video",       completed:true },
+    {title:"Rent vs. Buy Calculator",     type:"interactive", completed:false},
+    {title:"Salary Negotiation Basics",   type:"article",     completed:true },
+    {title:"Financial Decisions Quiz",    type:"quiz",        completed:true }
+  ]},
+  { num:"08", title:"Building Wealth",              icon:"🌱", meta:"7 lessons · ~40 min · Advanced",      lessons:[
+    {title:"What Is Net Worth?",           type:"video",       completed:true },
+    {title:"Assets vs. Liabilities",      type:"video",       completed:true },
+    {title:"How Wealth Builds Over Time",  type:"article",     completed:true },
+    {title:"Retirement Accounts",         type:"video",       completed:true },
+    {title:"Net Worth Calculator",        type:"interactive", completed:false},
+    {title:"Financial Independence",      type:"article",     completed:true },
+    {title:"Wealth Building Quiz",        type:"quiz",        completed:true }
+  ]},
+  { num:"09", title:"Financial Psychology",         icon:"🧠", meta:"7 lessons · ~35 min · All Levels",    lessons:[
+    {title:"Why People Overspend",         type:"video",       completed:false},
+    {title:"Consumer Psychology",          type:"video",       completed:false},
+    {title:"Marketing & Spending",         type:"article",     completed:false},
+    {title:"Delayed Gratification",        type:"video",       completed:false},
+    {title:"Spending Habit Tracker",       type:"interactive", completed:false},
+    {title:"Building Healthy Money Habits",type:"article",     completed:false},
+    {title:"Behavior & Money Quiz",        type:"quiz",        completed:false}
+  ]}
+];
+
+// ═══════════════════════════════════════════════════════════════
+// BUILT-IN ARTICLE CONTENT  (key = "chapterIndex-lessonIndex")
+// ═══════════════════════════════════════════════════════════════
+const LESSON_CONTENT = {
+  "0-0":{html:`<div class="placeholder-article article-content"><h2>What Is Money?</h2><p>Money is one of humanity's greatest inventions. It allows us to trade, save value, and measure worth — but what exactly makes money valuable?</p><h3>Three Functions of Money</h3><p><strong>1. Medium of Exchange</strong> — Money lets you trade for goods and services without bartering directly.</p><p><strong>2. Store of Value</strong> — Money holds worth over time, so you can save now and spend later.</p><p><strong>3. Unit of Account</strong> — Money provides a standard measure of price, making comparisons easy.</p><div class="article-callout">💡 Money works because society agrees it has value. When that trust breaks down, money loses its worth — this is why financial stability matters so much.</div><h3>What Gives Money Value?</h3><ul><li>People accept it as payment for goods and services</li><li>Governments declare it legal tender</li><li>Society collectively trusts in its worth</li><li>It is relatively scarce — not anyone can create it</li></ul><p>Today's money is mostly <strong>fiat currency</strong> — it has no intrinsic value like gold. Its value comes from government authority and widespread social agreement.</p></div>`},
+  "0-2":{html:`<div class="placeholder-article article-content"><h2>The History of Money</h2><p>Money hasn't always existed in the form we know today. Understanding its evolution reveals why modern financial systems work the way they do.</p><h3>Before Money: Barter (Prehistoric)</h3><p>People exchanged goods directly. The core problem: finding someone who has what you want AND wants what you have is extremely difficult.</p><h3>Commodity Money (3000 BCE – 1600s)</h3><p>Societies chose widely valued items as money: shells, beads, cattle, salt, and spices were all used as currency across different civilizations.</p><h3>Metal Coins (600 BCE – Present)</h3><p>Around 600 BCE, Lydia (modern Turkey) created the first standardized metal coins. Revolutionary — coins could be authenticated, standardized, and easily divided.</p><h3>Paper Money (700 CE – Present)</h3><p>China invented paper money as receipts for coin deposits. Eventually governments issued currency backed by precious metals, especially gold.</p><h3>Fiat Currency (1971 – Present)</h3><p>In 1971, President Nixon took the U.S. off the gold standard. All major world currencies became fiat — valuable only because governments declare them so.</p><div class="article-callout">💡 Today money exists as physical cash, bank deposits, credit cards, digital wallets, and cryptocurrencies. The trend is continuously toward more abstract forms of value.</div></div>`},
+  "0-5":{html:`<div class="placeholder-article article-content"><h2>Income vs. Wealth</h2><p>People often confuse income and wealth, but they are very different — and understanding the distinction can change how you approach your entire financial life.</p><h3>What Is Income?</h3><p><strong>Income</strong> is money you receive regularly — from a job, business, investments, or other sources. It's a <em>flow</em>, like water running from a tap. Stop working, and the flow stops.</p><h3>What Is Wealth?</h3><p><strong>Wealth</strong> is the total value of everything you own minus everything you owe. It's a <em>stock</em>, like water stored in a tank. It accumulates over time and sustains you even when income stops.</p><div class="article-callout">💡 A doctor earning $300,000/year but spending $295,000 is high-income but not wealthy. A teacher earning $60,000 who saves and invests consistently can build genuine wealth over decades.</div><h3>Why the Distinction Matters</h3><ul><li><strong>Income</strong> is what you earn — it can disappear overnight</li><li><strong>Wealth</strong> is what you keep — it provides security and freedom</li><li>The goal of financial literacy is to convert income into lasting wealth</li></ul><h3>Building Wealth From Income</h3><p>The gap between what you earn and what you spend is the engine of wealth building. The wider that gap — and the smarter you invest the surplus — the faster wealth grows.</p></div>`}
+};
+
+// ═══════════════════════════════════════════════════════════════
+// QUIZ DATA
+// ═══════════════════════════════════════════════════════════════
+const QUIZZES = {
+  "0-6":[
+    {q:"What are the three functions of money?",options:["Medium of exchange, store of value, unit of account","Saving, spending, and investing","Earning, budgeting, and planning"],correct:0,explain:"Money serves as a medium of exchange (trade without barter), store of value (hold worth over time), and unit of account (standard price measure)."},
+    {q:"Fiat currency gets its value from:",options:["Gold reserves held by the government","Government authority and public trust","The materials used to make it"],correct:1,explain:"Modern money has value because governments declare it legal tender and society collectively agrees to accept it — not because of any physical backing."},
+    {q:"What happened in 1971 regarding U.S. currency?",options:["Paper money was introduced","The gold standard was abandoned","Inflation reached its historic peak"],correct:1,explain:"President Nixon ended the U.S. dollar's convertibility to gold in 1971, making it a purely fiat currency."}
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════
+let isLoggedIn = false;
+let isAdmin    = false;
+let editingKey = "";
+let editingType= "";
+
+// ═══════════════════════════════════════════════════════════════
+// AUTH
+// ═══════════════════════════════════════════════════════════════
+function doLogin(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPassword').value.trim();
+  const err   = document.getElementById('loginError');
+
+  if(email === 'demo@cashcourse.com' && pass === 'cashcourse'){
+    isLoggedIn = true; isAdmin = false;
+    document.getElementById('loginOverlay').style.display = 'none';
+    renderCurriculum();
+    showPage('home');
+  } else if(email === 'admin@cashcourse.com' && pass === 'cashcourse2025'){
+    isLoggedIn = true; isAdmin = true;
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('adminNavBtn').style.display = 'flex';
+    renderCurriculum();
+    renderAdminPage();
+    showPage('admin');
+  } else {
+    err.classList.add('show');
+    setTimeout(()=>err.classList.remove('show'),4000);
+  }
+}
+
+function doLogout(){
+  isLoggedIn = false; isAdmin = false;
+  document.getElementById('loginOverlay').style.display = 'flex';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('adminNavBtn').style.display = 'none';
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+}
+
+// ═══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════
+function showPage(name){
+  if(!isLoggedIn) return;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page = document.getElementById('page-'+name);
+  if(page) page.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  ['home','curriculum','about'].forEach(n=>{
+    const el = document.getElementById('nav-'+n);
+    if(el) el.classList.toggle('active', n===name);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CURRICULUM
+// ═══════════════════════════════════════════════════════════════
+function renderCurriculum(){
+  const list = document.getElementById('modulesList');
+  if(!list) return;
+  list.innerHTML = '';
+
+  CHAPTERS.forEach((ch,ci)=>{
+    const card = document.createElement('div');
+    card.className = 'module-card'+(ci===0?' open':'');
+    card.id = 'mod-'+ci;
+
+    const icons = {video:'▶',article:'📖',interactive:'🛠️',quiz:'✏️'};
+    const done  = ch.lessons.filter(l=>l.completed).length;
+    const pct   = Math.round((done/ch.lessons.length)*100);
+
+    let lessonRows = '';
+    ch.lessons.forEach((ls,li)=>{
+      lessonRows += `<div class="lesson-row" onclick="openLesson(${ci},${li})">
+        <div class="lesson-type-icon">${icons[ls.type]}</div>
+        <div class="lesson-name">${ls.title}</div>
+        <span class="lesson-type-tag ${ls.type}">${ls.type}</span>
+      </div>`;
+    });
+
+    card.innerHTML = `
+      <div class="module-header" onclick="toggleModule('mod-${ci}')">
+        <div class="module-num">${ch.num}</div>
+        <div class="module-info">
+          <div class="module-title">${ch.icon} ${ch.title}</div>
+          <div class="module-meta">${ch.meta}</div>
+        </div>
+        <div class="module-chevron">▾</div>
+      </div>
+      <div class="module-lessons">
+        ${lessonRows}
+        <div class="progress-module">
+          <div class="pm-label"><span>Chapter Progress</span><span>${done} / ${ch.lessons.length} complete</span></div>
+          <div class="pm-bar"><div class="pm-fill" style="width:${pct}%"></div></div>
+        </div>
+      </div>`;
+
+    list.appendChild(card);
+  });
+}
+
+function toggleModule(id){
+  document.getElementById(id).classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// LESSON VIEWER
+// ═══════════════════════════════════════════════════════════════
+function openLesson(ci,li){
+  const ch  = CHAPTERS[ci];
+  const ls  = ch.lessons[li];
+  const key = ci+'-'+li;
+
+  document.getElementById('lessonBreadChapter').textContent = 'Ch.'+(ci+1)+': '+ch.title;
+  document.getElementById('lessonBreadTitle').textContent   = ls.title;
+  document.getElementById('lessonTitle').textContent        = ls.title;
+
+  const content = document.getElementById('lessonContent');
+
+  if(ls.type==='video'){
+    const stored = localStorage.getItem('video-'+key)||'';
+    if(stored){
+      const vid = extractYoutubeId(stored);
+      content.innerHTML = vid
+        ? `<div class="lesson-video-embed"><iframe src="https://www.youtube.com/embed/${vid}" allowfullscreen></iframe></div>`
+        : `<div class="placeholder-article"><p style="color:var(--muted)">Could not parse YouTube URL. Use Admin to fix the link.</p></div>`;
+    } else {
+      content.innerHTML = `<div class="placeholder-video"><div style="color:rgba(255,255,255,.7);text-align:center;padding:24px"><div style="font-size:2.5rem;margin-bottom:12px">▶</div><p style="font-size:.9rem">No video added yet.<br>Use Admin panel to add a YouTube link.</p></div></div>`;
+    }
+
+  }else if(ls.type==='article'){
+    const stored = localStorage.getItem('article-'+key)||'';
+    if(LESSON_CONTENT[key]){
+      content.innerHTML = LESSON_CONTENT[key].html;
+    }else if(stored){
+      content.innerHTML = `<div class="placeholder-article article-content">${stored}</div>`;
+    }else{
+      content.innerHTML = `<div class="placeholder-article"><p style="color:var(--muted);font-size:.9rem">Article not yet added. Use the Admin panel to add content.</p></div>`;
+    }
+
+  }else if(ls.type==='interactive'){
+    const stored = localStorage.getItem('interactive-'+key)||'';
+    if(stored){
+      content.innerHTML = `<div class="tool-container">${stored}</div>`;
+    }else{
+      content.innerHTML = `<div class="tool-container"><div class="tool-title">${ls.title}</div><div class="tool-desc">This interactive tool is coming soon.</div><div style="padding:40px;text-align:center;font-size:2.5rem">🛠️</div></div>`;
+    }
+
+  }else if(ls.type==='quiz'){
+    if(QUIZZES[key]){
+      content.innerHTML = renderQuiz(key,QUIZZES[key]);
+    }else{
+      content.innerHTML = `<div class="quiz-container"><p style="color:var(--muted)">Quiz not yet available. Check back soon!</p></div>`;
+    }
+  }
+
+  showPage('lesson');
+}
+
+function renderQuiz(key,questions){
+  let html='<div class="quiz-container">';
+  questions.forEach((q,i)=>{
+    html+=`<div class="quiz-question">
+      <div class="quiz-q-num">Question ${i+1} of ${questions.length}</div>
+      <div class="quiz-q-text">${q.q}</div>
+      <div class="quiz-options">`;
+    q.options.forEach((opt,oi)=>{
+      html+=`<label class="quiz-option" id="qopt-${key}-${i}-${oi}">
+        <input type="radio" name="q-${key}-${i}" value="${oi}" onchange="checkAnswer('${key}',${i},${oi},${q.correct},'${esc(q.explain)}')">
+        ${opt}</label>`;
+    });
+    html+=`</div><div id="qfb-${key}-${i}" class="quiz-feedback"></div></div>`;
+  });
+  html+='</div>';
+  return html;
+}
+
+function checkAnswer(key,qNum,chosen,correct,explain){
+  const fb=document.getElementById('qfb-'+key+'-'+qNum);
+  fb.style.display='block';
+  const optEl=document.getElementById('qopt-'+key+'-'+qNum+'-'+chosen);
+  if(chosen===correct){
+    fb.className='quiz-feedback correct';
+    fb.innerHTML='<strong>✓ Correct!</strong> '+explain;
+    if(optEl) optEl.classList.add('correct');
+  }else{
+    fb.className='quiz-feedback incorrect';
+    fb.innerHTML='<strong>✗ Not quite.</strong> '+explain;
+    if(optEl) optEl.classList.add('incorrect');
+  }
+}
+
+function esc(s){ return (s||'').replace(/'/g,"&#39;").replace(/"/g,"&quot;"); }
+
+function extractYoutubeId(url){
+  if(!url) return null;
+  const m=url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/)|youtu\.be\/)([^&\s?#]{11})/);
+  return m?m[1]:null;
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ADMIN — STATUS HELPER
+// ═══════════════════════════════════════════════════════════════
+function getLessonStatus(ci,li){
+  const ls=CHAPTERS[ci].lessons[li];
+  const key=ci+'-'+li;
+  if(ls.type==='quiz') return 'quiz';
+  const hasStored = !!localStorage.getItem(ls.type+'-'+key);
+  const hasBaked  = ls.type==='article' && !!LESSON_CONTENT[key];
+  if(ls.completed||hasStored||hasBaked) return 'live';
+  return 'empty';
+}
+
+function renderAdminPage(){
+  if(!isAdmin) return;
+  renderAdminProgress();
+  renderAdminChapterList();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ADMIN — PROGRESS OVERVIEW
+// ═══════════════════════════════════════════════════════════════
+function renderAdminProgress(){
+  const grid=document.getElementById('adminProgressGrid');
+  if(!grid) return;
+  grid.innerHTML='';
+
+  CHAPTERS.forEach((ch,ci)=>{
+    const nonQuiz=ch.lessons.filter(l=>l.type!=='quiz');
+    const liveCount=ch.lessons.filter((l,li)=>getLessonStatus(ci,li)==='live').length;
+    const pct=Math.round((liveCount/nonQuiz.length)*100);
+    const full=liveCount===nonQuiz.length;
+
+    const card=document.createElement('div');
+    card.className='admin-progress-card';
+    card.innerHTML=`
+      <div class="admin-progress-card-title">${ch.icon} Ch.${ch.num} — ${ch.title}</div>
+      <div class="admin-progress-bar"><div class="admin-progress-fill" style="width:${pct}%"></div></div>
+      <div class="admin-progress-label${full?' complete':''}">
+        ${liveCount} / ${nonQuiz.length} lessons live${full?' · ✓ Complete':''}
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// ADMIN — CHAPTER LIST
+// ═══════════════════════════════════════════════════════════════
+function renderAdminChapterList(){
+  const list=document.getElementById('adminChapterList');
+  if(!list) return;
+  list.innerHTML='';
+
+  CHAPTERS.forEach((ch,ci)=>{
+    const nonQuiz=ch.lessons.filter(l=>l.type!=='quiz');
+    const liveCount=nonQuiz.filter((l,li)=>getLessonStatus(ci,ch.lessons.indexOf(l))==='live').length;
+    const isFull=liveCount===nonQuiz.length;
+    const isOpen=ci<3; // first 3 chapters open by default
+
+    const sec=document.createElement('div');
+    sec.className='admin-chapter';
+
+    const hdr=document.createElement('div');
+    hdr.className='admin-chapter-header'+(isOpen?' open':'');
+    hdr.innerHTML=`
+      <span>${ch.icon} Ch.${ch.num} — ${ch.title}</span>
+      <div class="hdr-right">
+        <span class="admin-chapter-counter${isFull?' full':''}">${liveCount}/${nonQuiz.length} live</span>
+        <span class="chevron">▾</span>
+      </div>`;
+    hdr.onclick=()=>{
+      const lessons=sec.querySelector('.admin-chapter-lessons');
+      lessons.classList.toggle('open');
+      hdr.classList.toggle('open');
+    };
+    sec.appendChild(hdr);
+
+    const lessonsDiv=document.createElement('div');
+    lessonsDiv.className='admin-chapter-lessons'+(isOpen?' open':'');
+
+    ch.lessons.forEach((ls,li)=>{
+      const key=ci+'-'+li;
+      const status=getLessonStatus(ci,li);
+
+      let pillHtml='';
+      if(ls.type==='quiz'){
+        pillHtml=`<span class="admin-status-pill quiz-pill">Quiz</span>`;
+      }else if(status==='live'){
+        pillHtml=`<span class="admin-status-pill live">✓ Live</span>`;
+      }else{
+        pillHtml=`<span class="admin-status-pill empty">Empty</span>`;
+      }
+
+      const editBtnClass='admin-edit-btn'+(status==='live'?' has-content':'');
+      const editBtn=ls.type!=='quiz'
+        ? `<button class="${editBtnClass}" onclick="openEditDrawer('${key}','${ls.type}','${esc(ls.title)}')">Edit</button>`
+        : '';
+
+      const row=document.createElement('div');
+      row.className='admin-lesson-row';
+      row.innerHTML=`
+        <span class="admin-type-badge ${ls.type}">${ls.type}</span>
+        <span class="admin-lesson-name">${ls.title}</span>
+        ${pillHtml}
+        ${editBtn}`;
+      lessonsDiv.appendChild(row);
+    });
+
+    sec.appendChild(lessonsDiv);
+    list.appendChild(sec);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// EDIT DRAWER
+// ═══════════════════════════════════════════════════════════════
+function openEditDrawer(key,type,title){
+  editingKey=key; editingType=type;
+  document.getElementById('editDrawerTitle').textContent='Editing: '+title;
+  const body=document.getElementById('editDrawerBody');
+
+  if(type==='video'){
+    const saved=localStorage.getItem('video-'+key)||'';
+    body.innerHTML=`
+      <div class="edit-tip"><strong>YouTube URL</strong> — Paste any YouTube link. Watch, youtu.be, shorts, and embed formats all work.</div>
+      <div class="edit-field">
+        <label>YouTube URL</label>
+        <input type="text" id="ytInput" value="${esc(saved)}" placeholder="https://www.youtube.com/watch?v=...">
+      </div>
+      ${saved?`<div class="edit-saved-url">Currently saved: <code>${saved}</code></div>`:''}`;
+
+  }else if(type==='article'){
+    const saved=localStorage.getItem('article-'+key)||'';
+    const baked=LESSON_CONTENT[key]?LESSON_CONTENT[key].html:'';
+    body.innerHTML=`
+      <div class="edit-tip"><strong>Article HTML</strong> — Use <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code> tags. Add a callout with <code>&lt;div class="article-callout"&gt;...&lt;/div&gt;</code>. Saved content overrides built-in content.</div>
+      <div class="edit-field">
+        <label>Article HTML</label>
+        <textarea id="htmlInput" placeholder="&lt;h2&gt;Title&lt;/h2&gt;&lt;p&gt;Content here...&lt;/p&gt;">${esc(saved||baked)}</textarea>
+      </div>`;
+
+  }else if(type==='interactive'){
+    const saved=localStorage.getItem('interactive-'+key)||'';
+    body.innerHTML=`
+      <div class="edit-tip"><strong>Interactive Tool HTML</strong> — Paste self-contained HTML for the tool. JavaScript is supported. Use inline styles or site CSS variables.</div>
+      <div class="edit-field">
+        <label>Tool HTML</label>
+        <textarea id="interactiveInput" placeholder="&lt;div&gt;Interactive tool HTML here...&lt;/div&gt;">${esc(saved)}</textarea>
+      </div>`;
+  }
+
+  document.getElementById('editOverlay').classList.add('show');
+  document.getElementById('editDrawer').classList.add('open');
+}
+
+function closeEditDrawer(){
+  document.getElementById('editDrawer').classList.remove('open');
+  document.getElementById('editOverlay').classList.remove('show');
+}
+
+function saveLessonContent(){
+  if(editingType==='video'){
+    const url=document.getElementById('ytInput').value.trim();
+    if(!url){alert('Please enter a YouTube URL.');return;}
+    if(!extractYoutubeId(url)){alert('Could not parse that URL.\nPlease check it looks like: https://www.youtube.com/watch?v=XXXXXXXXXXX');return;}
+    localStorage.setItem('video-'+editingKey,url);
+  }else if(editingType==='article'){
+    const html=document.getElementById('htmlInput').value.trim();
+    if(!html){alert('Please enter some article HTML.');return;}
+    localStorage.setItem('article-'+editingKey,html);
+  }else if(editingType==='interactive'){
+    const html=document.getElementById('interactiveInput').value.trim();
+    if(!html){alert('Please enter some HTML for the tool.');return;}
+    localStorage.setItem('interactive-'+editingKey,html);
+  }
+  closeEditDrawer();
+  renderAdminPage();
+}
+
+function clearLessonContent(){
+  if(!confirm('Clear all saved content for this lesson? This cannot be undone.')) return;
+  localStorage.removeItem('video-'+editingKey);
+  localStorage.removeItem('article-'+editingKey);
+  localStorage.removeItem('interactive-'+editingKey);
+  closeEditDrawer();
+  renderAdminPage();
+}
+
+// ═══════════════════════════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════════════════════════
+function exportHTML(){
+  const html=document.documentElement.outerHTML;
+  const blob=new Blob([html],{type:'text/html'});
+  const link=document.createElement('a');
+  link.href=URL.createObjectURL(blob);
+  link.download='cashcourse.html';
+  link.click();
+  setTimeout(()=>alert('✓ cashcourse.html downloaded!\n\nUpload to your GitHub Pages root directory to publish.'),300);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('loginOverlay').style.display='flex';
+});
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>10);
+});
+</script>
+
+</body></html>
